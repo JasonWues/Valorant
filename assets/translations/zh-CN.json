@@ -1,3 +1,9 @@
 {
-    "weaponStats":"武器统计"
+    "weaponStats":"武器统计",
+    "fireRate":"射速",
+    "magazineSize":"弹夹大小",
+    "runSpeedMultiplier":"运行时间乘数",
+    "equipTimeSeconds":"装备时间",
+    "reloadTimeSeconds":"装弹时间",
+    "firstBulletAccuracy":"首发子弹精度"
 }

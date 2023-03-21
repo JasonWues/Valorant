@@ -27,7 +27,7 @@ class MainView extends ConsumerWidget {
         items: <BottomNavigationBarItem>[
           const BottomNavigationBarItem(
             icon: Icon(Icons.person),
-            label: 'Agents',
+            label: "Agents",
           ),
           BottomNavigationBarItem(
             icon: SvgPicture.asset(
@@ -39,7 +39,7 @@ class MainView extends ConsumerWidget {
               "assets/svg/Weapons.svg",
               colorFilter: ColorFilter.mode(bluePrimaryColor, BlendMode.srcIn),
             ),
-            label: 'Weapons',
+            label: "Weapons",
           ),
           const BottomNavigationBarItem(
             icon: Icon(Icons.school),

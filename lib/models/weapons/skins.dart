@@ -34,13 +34,13 @@ class Skins {
     if (json['chromas'] != null) {
       chromas = <Chromas>[];
       json['chromas'].forEach((v) {
-        chromas!.add(new Chromas.fromJson(v));
+        chromas!.add(Chromas.fromJson(v));
       });
     }
     if (json['levels'] != null) {
       levels = <Levels>[];
       json['levels'].forEach((v) {
-        levels!.add(new Levels.fromJson(v));
+        levels!.add(Levels.fromJson(v));
       });
     }
   }

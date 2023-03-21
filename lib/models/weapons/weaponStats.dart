@@ -49,20 +49,47 @@ class WeaponStats {
     feature = json['feature'];
     fireMode = json['fireMode'];
     altFireType = json['altFireType'];
-    adsStats = json['adsStats'] != null
-        ? new AdsStats.fromJson(json['adsStats'])
-        : null;
+    adsStats =
+        json['adsStats'] != null ? AdsStats.fromJson(json['adsStats']) : null;
     altShotgunStats = json['altShotgunStats'] != null
-        ? new AltShotgunStats.fromJson(json['altShotgunStats'])
+        ? AltShotgunStats.fromJson(json['altShotgunStats'])
         : null;
     airBurstStats = json['airBurstStats'] != null
-        ? new AirBurstStats.fromJson(json['airBurstStats'])
+        ? AirBurstStats.fromJson(json['airBurstStats'])
         : null;
     if (json['damageRanges'] != null) {
       damageRanges = <DamageRanges>[];
       json['damageRanges'].forEach((v) {
-        damageRanges!.add(new DamageRanges.fromJson(v));
+        damageRanges!.add(DamageRanges.fromJson(v));
       });
     }
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['fireRate'] = fireRate;
+    data['magazineSize'] = magazineSize;
+    data['runSpeedMultiplier'] = runSpeedMultiplier;
+    data['equipTimeSeconds'] = equipTimeSeconds;
+    data['reloadTimeSeconds'] = reloadTimeSeconds;
+    data['firstBulletAccuracy'] = firstBulletAccuracy;
+    data['shotgunPelletCount'] = shotgunPelletCount;
+    data['wallPenetration'] = wallPenetration;
+    data['feature'] = feature;
+    data['fireMode'] = fireMode;
+    data['altFireType'] = altFireType;
+    if (adsStats != null) {
+      data['adsStats'] = adsStats!.toJson();
+    }
+    if (altShotgunStats != null) {
+      data['altShotgunStats'] = altShotgunStats!.toJson();
+    }
+    if (airBurstStats != null) {
+      data['airBurstStats'] = airBurstStats!.toJson();
+    }
+    if (damageRanges != null) {
+      data['damageRanges'] = damageRanges!.map((v) => v.toJson()).toList();
+    }
+    return data;
   }
 }

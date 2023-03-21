@@ -8,4 +8,11 @@ class AirBurstStats {
     shotgunPelletCount = json['shotgunPelletCount'];
     burstDistance = json['burstDistance'];
   }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['shotgunPelletCount'] = shotgunPelletCount;
+    data['burstDistance'] = burstDistance;
+    return data;
+  }
 }

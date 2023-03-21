@@ -27,7 +27,7 @@ class ShopData {
     category = json['category'];
     categoryText = json['categoryText'];
     gridPosition = json['gridPosition'] != null
-        ? new GridPosition.fromJson(json['gridPosition'])
+        ? GridPosition.fromJson(json['gridPosition'])
         : null;
     canBeTrashed = json['canBeTrashed'];
     image = json['image'];

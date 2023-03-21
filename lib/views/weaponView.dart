@@ -8,6 +8,7 @@ class WeaponView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final args = ModalRoute.of(context)!.settings.arguments as Weapon;
+    final weaponStatsMap = args.weaponStats!.toJson();
     return Scaffold(
       appBar: AppBar(title: Text(args.displayName!)),
       body: Column(children: [
@@ -21,9 +22,35 @@ class WeaponView extends ConsumerWidget {
           errorBuilder: (context, error, stackTrace) =>
               const Text("Some errors occurred!"),
         ),
-        ExpansionTile(
-          title: Text("weaponStats".tr()),
-        )
+        Expanded(
+            child: Card(
+                child: ListView.builder(
+                    itemCount: 12,
+                    itemBuilder: (context, index) {
+                      if (weaponStatsMap.keys.elementAt(index) == "adsStats") {
+                        return ExpansionTile(
+                            title: Text(weaponStatsMap.keys.elementAt(index)));
+                      }
+                      return Container(
+                        height: 40,
+                        padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
+                        child: Row(
+                          children: [
+                            Expanded(
+                                child:
+                                    Text(weaponStatsMap.keys.elementAt(index))
+                                        .tr()),
+                            Expanded(
+                              child: Text(
+                                  weaponStatsMap.values
+                                      .elementAt(index)
+                                      .toString(),
+                                  textAlign: TextAlign.right),
+                            ),
+                          ],
+                        ),
+                      );
+                    }))),
       ]),
     );
   }

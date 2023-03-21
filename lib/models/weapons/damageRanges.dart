@@ -19,4 +19,14 @@ class DamageRanges {
     bodyDamage = json['bodyDamage'];
     legDamage = double.parse(json['legDamage'].toString());
   }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['rangeStartMeters'] = rangeStartMeters;
+    data['rangeEndMeters'] = rangeEndMeters;
+    data['headDamage'] = headDamage;
+    data['bodyDamage'] = bodyDamage;
+    data['legDamage'] = legDamage;
+    return data;
+  }
 }

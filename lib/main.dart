@@ -10,9 +10,9 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
   runApp(EasyLocalization(
-    supportedLocales: const [Locale('en', 'US'), Locale("zh", "CN")],
+    supportedLocales: const [Locale("en", "US"), Locale("zh", "CN")],
     path: "assets/translations",
-    fallbackLocale: const Locale('en', 'US'),
+    fallbackLocale: const Locale("en", "US"),
     child: const ProviderScope(
       child: MyApp(),
     ),
@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Valorant',
+      title: "Valorant",
       theme: ThemeData(
           fontFamily: "SourceHanSansSC",
           useMaterial3: true,

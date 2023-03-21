@@ -8,4 +8,11 @@ class AltShotgunStats {
     shotgunPelletCount = json['shotgunPelletCount'];
     burstRate = json['burstRate'];
   }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['shotgunPelletCount'] = shotgunPelletCount;
+    data['burstRate'] = burstRate;
+    return data;
+  }
 }
