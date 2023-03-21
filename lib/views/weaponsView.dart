@@ -19,7 +19,10 @@ class WeaponsView extends ConsumerWidget {
                       itemCount: data.length,
                       itemBuilder: (context, index) {
                         return GestureDetector(
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.of(context)
+                                  .pushNamed("Weapon", arguments: data[index]);
+                            },
                             child: Card(
                               child: Column(
                                 children: [

@@ -16,6 +16,7 @@ dependencies:
   flutter_riverpod: ^2.3.2
   dio: ^5.0.3
   flutter_svg: ^2.0.4
+  easy_localization: ^3.0.1
 
 dev_dependencies:
   flutter_test:
@@ -30,23 +31,22 @@ flutter:
   uses-material-design: true
 
   fonts:
-   - family: Noto_Serif_SC
+   - family: SourceHanSansSC
      fonts:
-       - asset: assets/fonts/Noto_Serif_SC/NotoSerifSC-ExtraLight.otf
+       - asset: assets/fonts/SourceHanSansSC/SourceHanSansSC-ExtraLight.otf
          weight: 200
-       - asset: assets/fonts/Noto_Serif_SC/NotoSerifSC-Light.otf
+       - asset: assets/fonts/SourceHanSansSC/SourceHanSansSC-Light.otf
          weight: 300
-       - asset: assets/fonts/Noto_Serif_SC/NotoSerifSC-Regular.otf
+       - asset: assets/fonts/SourceHanSansSC/SourceHanSansSC-Regular.otf
          weight: 400
-       - asset: assets/fonts/Noto_Serif_SC/NotoSerifSC-Medium.otf
+       - asset: assets/fonts/SourceHanSansSC/SourceHanSansSC-Medium.otf
          weight: 500
-       - asset: assets/fonts/Noto_Serif_SC/NotoSerifSC-SemiBold.otf
-         weight: 600
-       - asset: assets/fonts/Noto_Serif_SC/NotoSerifSC-Bold.otf
+       - asset: assets/fonts/SourceHanSansSC/SourceHanSansSC-Bold.otf
          weight: 700
-       - asset: assets/fonts/Noto_Serif_SC/NotoSerifSC-Black.otf
+       - asset: assets/fonts/SourceHanSansSC/SourceHanSansSC-Heavy.otf
          weight: 900
 
   assets:
     - assets/svg/Weapons.svg
+    - assets/translations/
 
