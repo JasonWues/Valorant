@@ -3,6 +3,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sliver_tools/sliver_tools.dart';
 import 'package:valorant/models/weapons/weapon.dart';
 
 class WeaponView extends ConsumerWidget {
@@ -11,7 +12,6 @@ class WeaponView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final args = ModalRoute.of(context)!.settings.arguments as Weapon;
-    final weaponMap = args.toJson();
     final weaponStatsMap = args.weaponStats!.toJson();
     final shopDataMap = args.shopData!.toJson();
     final skins = args.skins;
@@ -56,117 +56,123 @@ class WeaponView extends ConsumerWidget {
       );
     }
 
-    Card getWeaponStatsCard() {
-      return Card(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-                padding: const EdgeInsets.fromLTRB(20, 10, 0, 5),
-                child: Text("weaponStats".tr())),
-            ListView.builder(
-              shrinkWrap: true,
-              itemCount: weaponStatsMap.length,
-              itemBuilder: (context, index) {
-                debugPrint(index.toString());
-                if (weaponStatsMap.keys.elementAt(index) ==
-                        "shotgunPelletCount" ||
-                    weaponStatsMap.keys.elementAt(index) == "feature") {
-                  return const SizedBox.shrink();
-                }
-
-                if (weaponStatsMap.keys.elementAt(index) == "damageRanges") {
-                  final damageRangesList = weaponStatsMap.values
-                      .elementAt(index) as List<Map<String, dynamic>>;
-                  return getDamageRanges(damageRangesList, index);
-                }
-                return Container(
-                  height: 30,
-                  padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
-                  child: Row(children: [
-                    Expanded(
-                        child: Text(
-                      weaponStatsMap.keys.elementAt(index).tr(),
-                      style: const TextStyle(fontSize: 12),
-                    )),
-                    Expanded(
-                      child: Text(
-                        weaponStatsMap.values.elementAt(index).toString(),
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(fontSize: 12),
-                      ),
-                    ),
-                  ]),
-                );
-              },
-            )
-          ],
-        ),
-      );
-    }
-
-    Card getshopDataCard() {
-      return Card(
-          child:
-              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Padding(
-          padding: const EdgeInsets.fromLTRB(20, 10, 0, 5),
-          child: Text("shopData".tr()),
-        ),
-        SizedBox(
-          height: 100,
-          child: ListView.builder(
-            itemCount: 5,
-            physics: const NeverScrollableScrollPhysics(),
-            itemBuilder: (context, index) {
-              if (shopDataMap.keys.elementAt(index) == "category" ||
-                  shopDataMap.keys.elementAt(index) == "gridPosition") {
-                return const SizedBox.shrink();
-              }
-              return Container(
-                height: 30,
-                padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
-                child: Row(children: [
-                  Expanded(
-                      child: Text(
-                    shopDataMap.keys.elementAt(index).tr(),
-                    style: const TextStyle(fontSize: 12),
-                  )),
-                  Expanded(
-                    child: Text(
-                      shopDataMap.values.elementAt(index).toString(),
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(fontSize: 12),
-                    ),
-                  ),
-                ]),
-              );
-            },
-          ),
-        )
-      ]));
-    }
-
     return Scaffold(
-        body: CustomScrollView(
-      slivers: [
-        SliverAppBar(
-          title: Text(args.displayName!),
-          floating: true,
-          snap: true,
-        ),
-        SliverList(
-          delegate: SliverChildBuilderDelegate((context, index) {
-            if (weaponMap.keys.elementAt(index) == "weaponStats") {
-              return getWeaponStatsCard();
-            }
-            if (weaponMap.keys.elementAt(index) == "shopData") {
-              return getshopDataCard();
-            }
-            return const SizedBox.shrink();
-          }, childCount: weaponMap.length),
-        )
-      ],
-    ));
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            title: Text(args.displayName!),
+            floating: true,
+            snap: true,
+          ),
+          SliverStack(
+            insetOnOverlap: false,
+            children: [
+              SliverPositioned.fill(
+                child: Card(
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(20, 10, 0, 5),
+                    child: Text("shopData".tr()),
+                  ),
+                ),
+              ),
+              SliverPadding(
+                padding: const EdgeInsetsDirectional.only(top: 35),
+                sliver: SliverList(
+                  delegate: SliverChildBuilderDelegate((context, index) {
+                    if (weaponStatsMap.keys.elementAt(index) ==
+                            "shotgunPelletCount" ||
+                        weaponStatsMap.keys.elementAt(index) == "feature") {
+                      return const SizedBox.shrink();
+                    }
+
+                    if (weaponStatsMap.keys.elementAt(index) ==
+                        "damageRanges") {
+                      final damageRangesList = weaponStatsMap.values
+                          .elementAt(index) as List<Map<String, dynamic>>;
+                      return getDamageRanges(damageRangesList, index);
+                    }
+
+                    return Container(
+                      height: 30,
+                      padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
+                      child: Row(children: [
+                        Expanded(
+                            child: Text(
+                          weaponStatsMap.keys.elementAt(index).tr(),
+                          style: const TextStyle(fontSize: 12),
+                        )),
+                        Expanded(
+                          child: Text(
+                            weaponStatsMap.values.elementAt(index).toString(),
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(fontSize: 12),
+                          ),
+                        ),
+                      ]),
+                    );
+                  }, childCount: weaponStatsMap.length),
+                ),
+              ),
+            ],
+          ),
+          SliverStack(
+            insetOnOverlap: false,
+            children: <Widget>[
+              SliverPositioned.fill(
+                child: Card(
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(20, 10, 0, 5),
+                    child: Text("shopData".tr()),
+                  ),
+                ),
+              ),
+              SliverPadding(
+                padding: const EdgeInsets.only(top: 35),
+                sliver: SliverList(
+                    delegate: SliverChildBuilderDelegate((context, index) {
+                  if (shopDataMap.keys.elementAt(index) == "category" ||
+                      shopDataMap.keys.elementAt(index) == "gridPosition") {
+                    return const SizedBox.shrink();
+                  }
+                  return Container(
+                    height: 30,
+                    padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
+                    child: Row(
+                      children: [
+                        Expanded(
+                            child: Text(
+                          shopDataMap.keys.elementAt(index).tr(),
+                          style: const TextStyle(fontSize: 12),
+                        )),
+                        Expanded(
+                          child: Text(
+                            shopDataMap.values.elementAt(index).toString(),
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(fontSize: 12),
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                }, childCount: 5)),
+              )
+            ],
+          ),
+          SliverPadding(
+              padding: const EdgeInsets.only(top: 35),
+              sliver: SliverList(
+                delegate: SliverChildBuilderDelegate((context, index) {
+                  if (skins[index].displayName != null) {
+                    return skins[index].displayIcon != null
+                        ? Image.network(skins[index].displayIcon!)
+                        : const SizedBox.shrink();
+                  } else {
+                    return const SizedBox.shrink();
+                  }
+                }, childCount: skins!.length),
+              ))
+        ],
+      ),
+    );
   }
 }

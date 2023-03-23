@@ -17,5 +17,7 @@
     "cost":"价格",
     "canBeTrashed":"是否可丢弃",
     "skins":"皮肤",
+    "true":"是",
+    "false":"否",
     "to":"到"
 }
