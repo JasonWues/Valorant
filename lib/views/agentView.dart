@@ -23,6 +23,19 @@ class AgentView extends ConsumerWidget {
           title: Text(args.displayName!),
           floating: true,
           snap: false,
+          expandedHeight: 200,
+          flexibleSpace: FlexibleSpaceBar(
+            background: DecoratedBox(
+              position: DecorationPosition.background,
+              decoration: BoxDecoration(
+                  gradient: LinearGradient(colors: [
+                Color(int.parse("0x${args.backgroundGradientColors![0]}")),
+                Color(int.parse("0x${args.backgroundGradientColors![1]}")),
+                Color(int.parse("0x${args.backgroundGradientColors![2]}")),
+                Color(int.parse("0x${args.backgroundGradientColors![3]}")),
+              ])),
+            ),
+          ),
         ),
         SliverToBoxAdapter(
           child: args.fullPortrait != null
