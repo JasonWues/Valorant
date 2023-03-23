@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'gridPosition.dart';
 
 class ShopData {
@@ -34,5 +36,21 @@ class ShopData {
     newImage = json['newImage'];
     newImage2 = json['newImage2'];
     assetPath = json['assetPath'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['cost'] = cost;
+    data['category'] = category;
+    data['categoryText'] = categoryText;
+    if (gridPosition != null) {
+      data['gridPosition'] = gridPosition!.toJson();
+    }
+    data['canBeTrashed'] = canBeTrashed;
+    data['image'] = image;
+    data['newImage'] = newImage;
+    data['newImage2'] = newImage2;
+    data['assetPath'] = assetPath;
+    return data;
   }
 }

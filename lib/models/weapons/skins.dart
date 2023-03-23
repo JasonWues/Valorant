@@ -44,4 +44,22 @@ class Skins {
       });
     }
   }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['uuid'] = uuid;
+    data['displayName'] = displayName;
+    data['themeUuid'] = themeUuid;
+    data['contentTierUuid'] = contentTierUuid;
+    data['displayIcon'] = displayIcon;
+    data['wallpaper'] = wallpaper;
+    data['assetPath'] = assetPath;
+    if (chromas != null) {
+      data['chromas'] = chromas!.map((v) => v.toJson()).toList();
+    }
+    if (levels != null) {
+      data['levels'] = levels!.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
 }

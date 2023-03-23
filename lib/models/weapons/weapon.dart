@@ -46,4 +46,25 @@ class Weapon {
       });
     }
   }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['uuid'] = uuid;
+    data['displayName'] = displayName;
+    data['category'] = category;
+    data['defaultSkinUuid'] = defaultSkinUuid;
+    data['displayIcon'] = displayIcon;
+    data['killStreamIcon'] = killStreamIcon;
+    data['assetPath'] = assetPath;
+    if (weaponStats != null) {
+      data['weaponStats'] = weaponStats!.toJson();
+    }
+    if (shopData != null) {
+      data['shopData'] = shopData!.toJson();
+    }
+    if (skins != null) {
+      data['skins'] = skins!.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
 }

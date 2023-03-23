@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
@@ -15,7 +17,11 @@ class MainView extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final selectindex = ref.watch(selectIndexProvider);
 
-    final views = <Widget>[AgentsView(), WeaponsView(), const Text("sss")];
+    final views = <Widget>[
+      const AgentsView(),
+      const WeaponsView(),
+      const Text("sss")
+    ];
 
     return Scaffold(
       appBar: AppBar(

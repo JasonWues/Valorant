@@ -13,6 +13,9 @@
     "headDamage":"头部伤害",
     "bodyDamage":"身体伤害",
     "legDamage":"腿部伤害",
+    "shopData":"商店数据",
     "cost":"价格",
+    "canBeTrashed":"是否可丢弃",
+    "skins":"皮肤",
     "to":"到"
 }

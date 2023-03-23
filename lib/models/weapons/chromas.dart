@@ -25,4 +25,16 @@ class Chromas {
     streamedVideo = json['streamedVideo'];
     assetPath = json['assetPath'];
   }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['uuid'] = uuid;
+    data['displayName'] = displayName;
+    data['displayIcon'] = displayIcon;
+    data['fullRender'] = fullRender;
+    data['swatch'] = swatch;
+    data['streamedVideo'] = streamedVideo;
+    data['assetPath'] = assetPath;
+    return data;
+  }
 }

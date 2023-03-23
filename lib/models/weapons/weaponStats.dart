@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'adsStats.dart';
 import 'airBurstStats.dart';
 import 'altShotgunStats.dart';
