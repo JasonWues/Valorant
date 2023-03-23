@@ -5,5 +5,14 @@
     "runSpeedMultiplier":"运行时间乘数",
     "equipTimeSeconds":"装备时间",
     "reloadTimeSeconds":"装弹时间",
-    "firstBulletAccuracy":"首发子弹精度"
+    "firstBulletAccuracy":"首发子弹精度",
+    "wallPenetration":"穿墙系数",
+    "fireMode":"开火模式",
+    "damageRanges":"伤害范围",
+    "meter":"米",
+    "headDamage":"头部伤害",
+    "bodyDamage":"身体伤害",
+    "legDamage":"腿部伤害",
+    "cost":"价格",
+    "to":"到"
 }
