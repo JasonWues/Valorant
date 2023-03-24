@@ -24,7 +24,7 @@ dev_dependencies:
     sdk: flutter
 
   custom_lint: ^0.3.2
-  flutter_lints: ^2.0.0
+  flutter_lints: ^2.0.1
   riverpod_lint: ^1.1.6
 
 flutter:

@@ -1,5 +1,7 @@
 // ignore_for_file: file_names
 
+import 'dart:ui';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -159,12 +161,30 @@ class WeaponView extends ConsumerWidget {
             ],
           ),
           SliverPadding(
-              padding: const EdgeInsets.only(top: 35),
+              padding: const EdgeInsets.only(top: 20),
               sliver: SliverList(
                 delegate: SliverChildBuilderDelegate((context, index) {
                   if (skins[index].displayName != null) {
                     return skins[index].displayIcon != null
-                        ? Image.network(skins[index].displayIcon!)
+                        ? ImageFiltered(
+                            imageFilter: ImageFilter.blur(sigmaX: 1, sigmaY: 1),
+                            child: ShaderMask(
+                              shaderCallback: (rect) {
+                                return LinearGradient(
+                                    begin: Alignment.centerRight,
+                                    end: Alignment.centerLeft,
+                                    colors: [
+                                      Colors.black,
+                                      Colors.black.withOpacity(0)
+                                    ],
+                                    stops: const [
+                                      0.15,
+                                      0.75
+                                    ]).createShader(rect);
+                              },
+                              blendMode: BlendMode.dstOut,
+                              child: Image.network(skins[index].displayIcon!),
+                            ))
                         : const SizedBox.shrink();
                   } else {
                     return const SizedBox.shrink();

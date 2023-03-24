@@ -23,7 +23,7 @@ class AgentView extends ConsumerWidget {
           title: Text(args.displayName!),
           floating: true,
           snap: false,
-          expandedHeight: 200,
+          expandedHeight: 300,
           flexibleSpace: FlexibleSpaceBar(
             background: DecoratedBox(
               position: DecorationPosition.background,
@@ -33,26 +33,22 @@ class AgentView extends ConsumerWidget {
                 Color(int.parse("0x${args.backgroundGradientColors![1]}")),
                 Color(int.parse("0x${args.backgroundGradientColors![2]}")),
                 Color(int.parse("0x${args.backgroundGradientColors![3]}")),
-              ])),
+              ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
+              child: Image.network(
+                args.background!,
+                width: 350,
+                height: 512,
+              ),
             ),
           ),
         ),
         SliverToBoxAdapter(
-          child: args.fullPortrait != null
-              ? Image.network(
-                  args.fullPortrait!,
-                  width: 352,
-                  height: 320,
-                  filterQuality: FilterQuality.high,
-                  loadingBuilder: (context, child, loadingProgress) {
-                    if (loadingProgress == null) return child;
-                    return const CircularProgressIndicator();
-                  },
-                  errorBuilder: (context, error, stackTrace) =>
-                      const Text('Some errors occurred!'),
-                )
-              : const Text("Non Image"),
-        ),
+            child: Image.network(
+          args.fullPortrait!,
+          width: 352,
+          height: 320,
+          filterQuality: FilterQuality.high,
+        )),
         SliverToBoxAdapter(
           child: Row(children: [
             Padding(
@@ -116,8 +112,11 @@ class AgentView extends ConsumerWidget {
                                 width: 50,
                                 height: 50,
                                 color: bluePrimaryColor,
+                                key: const ValueKey("AbilitiesIconImage"),
                               )
-                            : const SizedBox.shrink(),
+                            : const SizedBox.shrink(
+                                key: ValueKey("emptyAbilitiesIconShrink"),
+                              ),
                       );
                     },
                   ))),
