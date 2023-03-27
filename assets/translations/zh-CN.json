@@ -1,4 +1,6 @@
 {
+    "Weapons":"武器",
+    "Sprays":"喷雾",
     "weaponStats":"武器统计",
     "fireRate":"射速",
     "magazineSize":"弹夹大小",
@@ -17,6 +19,7 @@
     "cost":"价格",
     "canBeTrashed":"是否可丢弃",
     "skins":"皮肤",
+    "chromas":"炫彩",
     "true":"是",
     "false":"否",
     "to":"到"

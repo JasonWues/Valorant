@@ -181,6 +181,11 @@ class WeaponView extends ConsumerWidget {
                         ? Stack(
                             children: [
                               GestureDetector(
+                                  onTap: () {
+                                    Navigator.of(context).pushNamed(
+                                        "WeaponSkin",
+                                        arguments: skins[index]);
+                                  },
                                   child: ImageFiltered(
                                       imageFilter: ImageFilter.blur(
                                           sigmaX: 1, sigmaY: 1),
@@ -206,8 +211,13 @@ class WeaponView extends ConsumerWidget {
                                       ))),
                               Positioned(
                                 right: 30,
-                                top: 45,
-                                child: Text(skins[index].displayName!),
+                                top: 25,
+                                child: Text(
+                                  skins[index].displayName!,
+                                  style: const TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold),
+                                ),
                               )
                             ],
                           )

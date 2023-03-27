@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:valorant/models/sprays/spray.dart';
 import 'package:valorant/models/weapons/weapon.dart';
 import '../models/agents/agent.dart';
 import '../repository/repository.dart';
@@ -13,4 +14,9 @@ final agentsProvider = FutureProvider<List<Agent>>((ref) async {
 final weaponsProvider = FutureProvider<List<Weapon>>((ref) async {
   final repository = ref.read(repositoryProvider);
   return await repository.getWeapons();
+});
+
+final spraysProvider = FutureProvider<List<Spray>>((ref) async {
+  final repository = ref.read(repositoryProvider);
+  return await repository.getSprays();
 });

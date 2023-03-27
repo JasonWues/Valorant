@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:valorant/theme/color.dart';
 import 'package:valorant/views/agentView.dart';
 import 'package:valorant/views/mainView.dart';
+import 'package:valorant/views/weaponSkinView.dart';
 import 'package:valorant/views/weaponView.dart';
 
 void main() async {
@@ -42,7 +43,8 @@ class MyApp extends StatelessWidget {
       routes: {
         "Home": (context) => const MainView(),
         "Agent": (context) => const AgentView(),
-        "Weapon": (context) => const WeaponView()
+        "Weapon": (context) => const WeaponView(),
+        "WeaponSkin": (context) => const WeaponSkinView()
       },
     );
   }

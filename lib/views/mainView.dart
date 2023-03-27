@@ -1,8 +1,10 @@
 // ignore_for_file: file_names
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:valorant/views/spraysView.dart';
 import 'package:valorant/views/weaponsView.dart';
 
 import '../theme/color.dart';
@@ -20,13 +22,12 @@ class MainView extends ConsumerWidget {
     final views = <Widget>[
       const AgentsView(),
       const WeaponsView(),
-      const Text("sss")
+      const SpraysView()
     ];
 
     return Scaffold(
       appBar: AppBar(
         title: const Text("Valorant"),
-        actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.search))],
       ),
       body: views[selectindex],
       bottomNavigationBar: BottomNavigationBar(
@@ -45,11 +46,11 @@ class MainView extends ConsumerWidget {
               "assets/svg/Weapons.svg",
               colorFilter: ColorFilter.mode(bluePrimaryColor, BlendMode.srcIn),
             ),
-            label: "Weapons",
+            label: "Weapons".tr(),
           ),
-          const BottomNavigationBarItem(
+          BottomNavigationBarItem(
             icon: Icon(Icons.school),
-            label: 'School',
+            label: "Sprays".tr(),
           ),
         ],
         currentIndex: selectindex,
