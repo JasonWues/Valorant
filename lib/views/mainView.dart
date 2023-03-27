@@ -4,6 +4,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:valorant/views/buddies.dart';
 import 'package:valorant/views/spraysView.dart';
 import 'package:valorant/views/weaponsView.dart';
 
@@ -22,7 +23,8 @@ class MainView extends ConsumerWidget {
     final views = <Widget>[
       const AgentsView(),
       const WeaponsView(),
-      const SpraysView()
+      const SpraysView(),
+      const BuddiesView()
     ];
 
     return Scaffold(
@@ -30,7 +32,33 @@ class MainView extends ConsumerWidget {
         title: const Text("Valorant"),
       ),
       body: views[selectindex],
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            const DrawerHeader(
+              child: Text('Drawer Header'),
+            ),
+            ListTile(
+              leading: const Icon(
+                Icons.home,
+              ),
+              title: const Text("Home"),
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+            const AboutListTile(
+              icon: Icon(Icons.info),
+              applicationName: "Valorant",
+              applicationVersion: "1.0",
+              aboutBoxChildren: [],
+            )
+          ],
+        ),
+      ),
       bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
         items: <BottomNavigationBarItem>[
           const BottomNavigationBarItem(
             icon: Icon(Icons.person),
@@ -52,6 +80,8 @@ class MainView extends ConsumerWidget {
             icon: Icon(Icons.school),
             label: "Sprays".tr(),
           ),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.school), label: "Buddies".tr())
         ],
         currentIndex: selectindex,
         onTap: (value) {

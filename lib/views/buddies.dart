@@ -1,18 +1,14 @@
-// ignore_for_file: file_names
-
-import 'package:easy_image_viewer/easy_image_viewer.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../view_models/provider.dart';
 
-class SpraysView extends ConsumerWidget {
-  const SpraysView({super.key});
+class BuddiesView extends ConsumerWidget {
+  const BuddiesView({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final asyncValue = ref.watch(spraysProvider);
+    final asyncValue = ref.watch(buddiesProvider);
     return Center(
         child: asyncValue.when(
             data: (data) {
@@ -25,19 +21,7 @@ class SpraysView extends ConsumerWidget {
                       itemCount: data.length,
                       itemBuilder: (context, index) {
                         return GestureDetector(
-                          onTap: () {
-                            if (data[index].fullIcon != null) {
-                              final imageProvider =
-                                  Image.network(data[index].fullIcon!).image;
-                              showImageViewer(context, imageProvider);
-                            } else {
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(SnackBar(
-                                content: Text(
-                                    "Current Spray Not Found FullImage".tr()),
-                              ));
-                            }
-                          },
+                          onTap: () {},
                           child: Card(
                             child: Column(
                               children: <Widget>[

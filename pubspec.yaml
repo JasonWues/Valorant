@@ -14,11 +14,12 @@ dependencies:
 
   cupertino_icons: ^1.0.2
   flutter_riverpod: ^2.3.2
-  dio: ^5.0.3
+  dio: ^5.1.0
   flutter_svg: ^2.0.4
   easy_localization: ^3.0.1
   sliver_tools: ^0.2.9
   video_player: ^2.6.0
+  easy_image_viewer: ^1.2.0
 
 dev_dependencies:
   flutter_test:
