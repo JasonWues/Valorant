@@ -1,11 +1,13 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:valorant/theme/color.dart';
-import 'package:valorant/views/agentView.dart';
-import 'package:valorant/views/mainView.dart';
-import 'package:valorant/views/weaponSkinView.dart';
-import 'package:valorant/views/weaponView.dart';
+
+import 'theme/color.dart';
+import 'view_models/provider.dart';
+import 'views/agentView.dart';
+import 'views/mainView.dart';
+import 'views/weaponSkinView.dart';
+import 'views/weaponView.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,21 +22,21 @@ void main() async {
   ));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends ConsumerWidget {
   const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final darkMode = ref.watch(darkModeProvider);
+
     return MaterialApp(
       title: "Valorant",
       theme: ThemeData(
           fontFamily: "SourceHanSansSC",
           useMaterial3: true,
           colorSchemeSeed: bluePrimaryColor),
-      darkTheme: ThemeData(
-          fontFamily: "SourceHanSansSC",
-          colorSchemeSeed: bluePrimaryColor,
-          useMaterial3: true),
+      darkTheme: ThemeData.dark(useMaterial3: true),
+      themeMode: darkMode ? ThemeMode.dark : ThemeMode.light,
       debugShowCheckedModeBanner: false,
       initialRoute: "Home",
       localizationsDelegates: context.localizationDelegates,

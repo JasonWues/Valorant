@@ -1,8 +1,10 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:valorant/models/buddies/buddy.dart';
-import 'package:valorant/models/sprays/spray.dart';
-import 'package:valorant/models/weapons/weapon.dart';
+
+import '../config/darkModeNotifier.dart';
 import '../models/agents/agent.dart';
+import '../models/buddies/buddy.dart';
+import '../models/sprays/spray.dart';
+import '../models/weapons/weapon.dart';
 import '../repository/repository.dart';
 
 final repositoryProvider = Provider((ref) => Repository());
@@ -26,3 +28,7 @@ final buddiesProvider = FutureProvider<List<Buddy>>((ref) async {
   final repository = ref.read(repositoryProvider);
   return await repository.getBuddies();
 });
+
+final darkModeProvider = StateNotifierProvider<DarkModeNotifier, bool>(
+  (ref) => DarkModeNotifier(),
+);

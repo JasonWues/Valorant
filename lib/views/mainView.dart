@@ -9,6 +9,7 @@ import 'package:valorant/views/spraysView.dart';
 import 'package:valorant/views/weaponsView.dart';
 
 import '../theme/color.dart';
+import '../view_models/provider.dart';
 import 'agentsView.dart';
 
 final selectIndexProvider = StateProvider<int>((ref) => 0);
@@ -19,7 +20,7 @@ class MainView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final selectindex = ref.watch(selectIndexProvider);
-
+    final darkMode = ref.watch(darkModeProvider);
     final views = <Widget>[
       const AgentsView(),
       const WeaponsView(),
@@ -46,6 +47,14 @@ class MainView extends ConsumerWidget {
               title: const Text("Home"),
               onTap: () {
                 Navigator.pop(context);
+              },
+            ),
+            SwitchListTile(
+              title: Text("Dark Mode".tr()),
+              secondary: const Icon(Icons.dark_mode),
+              value: darkMode,
+              onChanged: (value) {
+                ref.read(darkModeProvider.notifier).toggle();
               },
             ),
             const AboutListTile(
