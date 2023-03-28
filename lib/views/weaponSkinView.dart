@@ -15,6 +15,11 @@ class WeaponSkinView extends ConsumerWidget {
     return Scaffold(
       body: CustomScrollView(
         slivers: [
+          SliverAppBar(
+            title: Text(args.displayName!),
+            floating: true,
+            snap: true,
+          ),
           SliverStack(
             insetOnOverlap: false,
             children: [
@@ -25,6 +30,9 @@ class WeaponSkinView extends ConsumerWidget {
                   child: Text("chromas".tr()),
                 ),
               )),
+              SliverPadding(
+                padding: const EdgeInsetsDirectional.only(top: 35),
+              )
             ],
           )
         ],

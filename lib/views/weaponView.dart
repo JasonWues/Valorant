@@ -59,6 +59,38 @@ class WeaponView extends ConsumerWidget {
       );
     }
 
+    ExpansionTile getAdsStats(int index) {
+      final adsStats = weaponStatsMap!["adsStats"] as Map<String, dynamic>;
+      return ExpansionTile(
+        title: Text(
+          weaponStatsMap.keys.elementAt(index).tr(),
+          style: const TextStyle(fontWeight: FontWeight.w400, fontSize: 14),
+        ),
+        children: adsStats.entries.map((entry) {
+          return Container(
+            height: 30,
+            padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
+            child: Row(
+              children: [
+                Expanded(
+                    child: Text(
+                  entry.key.tr(),
+                  style: const TextStyle(fontSize: 12),
+                )),
+                Expanded(
+                  child: Text(
+                    entry.value.toString(),
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(fontSize: 12),
+                  ),
+                ),
+              ],
+            ),
+          );
+        }).toList(),
+      );
+    }
+
     return Scaffold(
       body: CustomScrollView(
         slivers: [
@@ -84,9 +116,7 @@ class WeaponView extends ConsumerWidget {
                       sliver: SliverList(
                         delegate: SliverChildBuilderDelegate((context, index) {
                           if (weaponStatsMap.keys.elementAt(index) ==
-                                  "shotgunPelletCount" ||
-                              weaponStatsMap.keys.elementAt(index) ==
-                                  "feature") {
+                              "feature") {
                             return const SizedBox.shrink();
                           }
 
@@ -95,6 +125,40 @@ class WeaponView extends ConsumerWidget {
                             final damageRangesList = weaponStatsMap.values
                                 .elementAt(index) as List<Map<String, dynamic>>;
                             return getDamageRanges(damageRangesList, index);
+                          }
+
+                          if (weaponStatsMap.keys.elementAt(index) ==
+                                  "wallPenetration" ||
+                              weaponStatsMap.keys.elementAt(index) ==
+                                  "fireMode" ||
+                              weaponStatsMap.keys.elementAt(index) ==
+                                  "altFireType") {
+                            return Container(
+                              height: 30,
+                              padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
+                              child: Row(children: [
+                                Expanded(
+                                    child: Text(
+                                  weaponStatsMap.keys.elementAt(index).tr(),
+                                  style: const TextStyle(fontSize: 12),
+                                )),
+                                Expanded(
+                                  child: Text(
+                                    weaponStatsMap.values
+                                        .elementAt(index)
+                                        .toString()
+                                        .tr(),
+                                    textAlign: TextAlign.center,
+                                    style: const TextStyle(fontSize: 12),
+                                  ),
+                                ),
+                              ]),
+                            );
+                          }
+
+                          if (weaponStatsMap.keys.elementAt(index) ==
+                              "adsStats") {
+                            return getAdsStats(index);
                           }
 
                           return Container(

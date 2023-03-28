@@ -8,7 +8,6 @@ import 'package:valorant/views/buddies.dart';
 import 'package:valorant/views/spraysView.dart';
 import 'package:valorant/views/weaponsView.dart';
 
-import '../theme/color.dart';
 import '../view_models/provider.dart';
 import 'agentsView.dart';
 
@@ -81,7 +80,6 @@ class MainView extends ConsumerWidget {
             ),
             activeIcon: SvgPicture.asset(
               "assets/svg/Weapons.svg",
-              colorFilter: ColorFilter.mode(bluePrimaryColor, BlendMode.srcIn),
             ),
             label: "Weapons".tr(),
           ),

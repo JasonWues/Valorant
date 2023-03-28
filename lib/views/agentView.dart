@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:valorant/models/agents/agent.dart';
-import 'package:valorant/theme/color.dart';
 
 final selectIndexProvider = StateProvider<int>((ref) {
   return 0;
@@ -58,7 +57,6 @@ class AgentView extends ConsumerWidget {
                   width: 35,
                   height: 35,
                   filterQuality: FilterQuality.high,
-                  color: bluePrimaryColor,
                 )),
             Expanded(
                 child: Column(
@@ -111,7 +109,6 @@ class AgentView extends ConsumerWidget {
                                 args.abilities![index].displayIcon!,
                                 width: 50,
                                 height: 50,
-                                color: bluePrimaryColor,
                                 key: const ValueKey("AbilitiesIconImage"),
                               )
                             : const SizedBox.shrink(

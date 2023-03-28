@@ -1,8 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'theme/color.dart';
 import 'view_models/provider.dart';
 import 'views/agentView.dart';
 import 'views/mainView.dart';
@@ -31,11 +31,14 @@ class MyApp extends ConsumerWidget {
 
     return MaterialApp(
       title: "Valorant",
-      theme: ThemeData(
+      theme: FlexThemeData.light(
           fontFamily: "SourceHanSansSC",
           useMaterial3: true,
-          colorSchemeSeed: bluePrimaryColor),
-      darkTheme: ThemeData.dark(useMaterial3: true),
+          scheme: FlexScheme.red),
+      darkTheme: FlexThemeData.dark(
+          fontFamily: "SourceHanSansSC",
+          useMaterial3: true,
+          scheme: FlexScheme.red),
       themeMode: darkMode ? ThemeMode.dark : ThemeMode.light,
       debugShowCheckedModeBanner: false,
       initialRoute: "Home",
