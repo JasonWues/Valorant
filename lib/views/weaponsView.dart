@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../view_models/provider.dart';
 
@@ -43,6 +44,19 @@ class WeaponsView extends ConsumerWidget {
                   : const Text('Data is empty.');
             },
             error: (error, _) => Text(error.toString()),
-            loading: () => const CircularProgressIndicator()));
+            loading: () {
+              return GridView.builder(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3),
+                itemCount: 20,
+                itemBuilder: (context, index) {
+                  return Shimmer.fromColors(
+                    baseColor: Colors.grey,
+                    highlightColor: Colors.white,
+                    child: Card(),
+                  );
+                },
+              );
+            }));
   }
 }

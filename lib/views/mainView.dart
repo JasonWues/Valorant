@@ -20,6 +20,7 @@ class MainView extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final selectindex = ref.watch(selectIndexProvider);
     final darkMode = ref.watch(darkModeProvider);
+    final version = ref.watch(versionProvider);
     final views = <Widget>[
       const AgentsView(),
       const WeaponsView(),
@@ -56,12 +57,20 @@ class MainView extends ConsumerWidget {
                 ref.read(darkModeProvider.notifier).toggle();
               },
             ),
-            const AboutListTile(
-              icon: Icon(Icons.info),
+            AboutListTile(
+              icon: const Icon(Icons.info),
               applicationName: "Valorant",
               applicationVersion: "1.0",
-              aboutBoxChildren: [],
-            )
+              aboutBoxChildren: [
+                Text("Game BuildDate".tr()),
+                version.when(
+                    data: (data) {
+                      return Text(data.buildDate!);
+                    },
+                    error: (error, _) => Text(error.toString()),
+                    loading: () => const CircularProgressIndicator()),
+              ],
+            ),
           ],
         ),
       ),

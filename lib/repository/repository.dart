@@ -2,6 +2,7 @@ import 'package:valorant/models/agents/agent.dart';
 import 'package:valorant/models/buddies/buddy.dart';
 import 'package:valorant/models/sprays/spray.dart';
 
+import '../models/version.dart';
 import '../models/weapons/weapon.dart';
 import '../util/http.dart';
 
@@ -45,5 +46,11 @@ class Repository {
       buddies.add(Buddy.fromJson(data[i]));
     }
     return buddies;
+  }
+
+  Future<Version> gerVersion() async {
+    final result = await api.valorantGet("/v1/version");
+    final data = Version.fromJson(result["data"]);
+    return data;
   }
 }

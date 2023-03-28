@@ -12,6 +12,7 @@ class WeaponSkinView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final args = ModalRoute.of(context)!.settings.arguments as Skins;
+
     return Scaffold(
       body: CustomScrollView(
         slivers: [
@@ -32,6 +33,39 @@ class WeaponSkinView extends ConsumerWidget {
               )),
               SliverPadding(
                 padding: const EdgeInsetsDirectional.only(top: 35),
+                sliver: SliverList(
+                    delegate: SliverChildBuilderDelegate((context, index) {
+                  return Column(children: [
+                    Image.network(args.chromas![index].fullRender!),
+                    Text(
+                      args.chromas![index].displayName!.replaceAll("\n", " "),
+                    )
+                  ]);
+                }, childCount: args.chromas!.length)),
+              )
+            ],
+          ),
+          SliverStack(
+            insetOnOverlap: false,
+            children: [
+              SliverPositioned.fill(
+                  child: Card(
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 10, 0, 5),
+                  child: Text("chromas".tr()),
+                ),
+              )),
+              SliverPadding(
+                padding: const EdgeInsetsDirectional.only(top: 35),
+                sliver: SliverList(
+                    delegate: SliverChildBuilderDelegate((context, index) {
+                  return Column(children: [
+                    Image.network(args.levels![index].displayIcon!),
+                    Text(
+                      args.chromas![index].displayName!.replaceAll("\n", " "),
+                    )
+                  ]);
+                }, childCount: args.levels!.length)),
               )
             ],
           )

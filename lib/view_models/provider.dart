@@ -4,6 +4,7 @@ import '../config/darkModeNotifier.dart';
 import '../models/agents/agent.dart';
 import '../models/buddies/buddy.dart';
 import '../models/sprays/spray.dart';
+import '../models/version.dart';
 import '../models/weapons/weapon.dart';
 import '../repository/repository.dart';
 
@@ -27,6 +28,11 @@ final spraysProvider = FutureProvider<List<Spray>>((ref) async {
 final buddiesProvider = FutureProvider<List<Buddy>>((ref) async {
   final repository = ref.read(repositoryProvider);
   return await repository.getBuddies();
+});
+
+final versionProvider = FutureProvider<Version>((ref) async {
+  final repository = ref.read(repositoryProvider);
+  return await repository.gerVersion();
 });
 
 final darkModeProvider = StateNotifierProvider<DarkModeNotifier, bool>(

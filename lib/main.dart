@@ -34,11 +34,11 @@ class MyApp extends ConsumerWidget {
       theme: FlexThemeData.light(
           fontFamily: "SourceHanSansSC",
           useMaterial3: true,
-          scheme: FlexScheme.red),
+          scheme: FlexScheme.bahamaBlue),
       darkTheme: FlexThemeData.dark(
           fontFamily: "SourceHanSansSC",
           useMaterial3: true,
-          scheme: FlexScheme.red),
+          scheme: FlexScheme.bahamaBlue),
       themeMode: darkMode ? ThemeMode.dark : ThemeMode.light,
       debugShowCheckedModeBanner: false,
       initialRoute: "Home",
