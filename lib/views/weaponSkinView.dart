@@ -35,11 +35,34 @@ class WeaponSkinView extends ConsumerWidget {
                 padding: const EdgeInsetsDirectional.only(top: 35),
                 sliver: SliverList(
                     delegate: SliverChildBuilderDelegate((context, index) {
-                  return Column(children: [
-                    Image.network(args.chromas![index].fullRender!),
-                    Text(
-                      args.chromas![index].displayName!.replaceAll("\n", " "),
-                    )
+                  return Row(children: [
+                    Expanded(
+                        flex: 2,
+                        child: Image.network(
+                          args.chromas![index].fullRender!,
+                          filterQuality: FilterQuality.high,
+                          fit: BoxFit.contain,
+                        )),
+                    Expanded(
+                        child: Column(
+                      children: [
+                        Text(
+                          args.chromas![index].displayName!
+                              .replaceAll("\n", " "),
+                        ),
+                        args.chromas![index].streamedVideo != null
+                            ? ElevatedButton.icon(
+                                onPressed: () {
+                                  Navigator.of(context).pushNamed("VideoPlay",
+                                      arguments:
+                                          args.chromas![index].streamedVideo);
+                                },
+                                icon: const Icon(Icons.play_arrow),
+                                label: Text("Play Video".tr()),
+                              )
+                            : const SizedBox.shrink()
+                      ],
+                    ))
                   ]);
                 }, childCount: args.chromas!.length)),
               )
@@ -52,18 +75,43 @@ class WeaponSkinView extends ConsumerWidget {
                   child: Card(
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(20, 10, 0, 5),
-                  child: Text("chromas".tr()),
+                  child: Text("levels".tr()),
                 ),
               )),
               SliverPadding(
                 padding: const EdgeInsetsDirectional.only(top: 35),
                 sliver: SliverList(
                     delegate: SliverChildBuilderDelegate((context, index) {
-                  return Column(children: [
-                    Image.network(args.levels![index].displayIcon!),
-                    Text(
-                      args.chromas![index].displayName!.replaceAll("\n", " "),
-                    )
+                  return Row(children: [
+                    args.levels![index].displayIcon != null
+                        ? Expanded(
+                            flex: 2,
+                            child: Image.network(
+                              args.levels![index].displayIcon!,
+                              filterQuality: FilterQuality.high,
+                              fit: BoxFit.contain,
+                            ))
+                        : const SizedBox.shrink(),
+                    Expanded(
+                        child: Column(
+                      children: [
+                        Text(
+                          args.levels![index].displayName!
+                              .replaceAll("\n", " "),
+                        ),
+                        args.levels![index].streamedVideo != null
+                            ? ElevatedButton.icon(
+                                onPressed: () {
+                                  Navigator.of(context).pushNamed("VideoPlay",
+                                      arguments:
+                                          args.levels![index].streamedVideo);
+                                },
+                                icon: const Icon(Icons.play_arrow),
+                                label: Text("Play Video".tr()),
+                              )
+                            : const SizedBox.shrink()
+                      ],
+                    ))
                   ]);
                 }, childCount: args.levels!.length)),
               )

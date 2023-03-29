@@ -270,7 +270,6 @@ class WeaponView extends ConsumerWidget {
                                         blendMode: BlendMode.dstOut,
                                         child: Image.network(
                                           skins[index].displayIcon!,
-                                          height: 90,
                                         ),
                                       ))),
                               Positioned(

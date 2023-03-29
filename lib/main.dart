@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'view_models/provider.dart';
 import 'views/agentView.dart';
 import 'views/mainView.dart';
+import 'views/videoPlayView.dart';
 import 'views/weaponSkinView.dart';
 import 'views/weaponView.dart';
 
@@ -49,7 +50,9 @@ class MyApp extends ConsumerWidget {
         "Home": (context) => const MainView(),
         "Agent": (context) => const AgentView(),
         "Weapon": (context) => const WeaponView(),
-        "WeaponSkin": (context) => const WeaponSkinView()
+        "WeaponSkin": (context) => const WeaponSkinView(),
+        "VideoPlay": (context) =>
+            VideoPlayView(ModalRoute.of(context)!.settings.arguments.toString())
       },
     );
   }

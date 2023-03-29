@@ -29,10 +29,12 @@
     "canBeTrashed":"是否可丢弃",
     "skins":"皮肤",
     "chromas":"炫彩",
+    "levels":"等级",
     "Buddies":"挂饰",
     "true":"是",
     "false":"否",
     "to":"到",
     "Current Spray Not Found FullImage":"当前喷雾的大图未找到",
-    "Dark Mode":"黑夜模式"
+    "Dark Mode":"黑夜模式",
+    "Play Video":"播放视频"
 }
