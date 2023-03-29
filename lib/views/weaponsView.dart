@@ -53,7 +53,7 @@ class WeaponsView extends ConsumerWidget {
                   return Shimmer.fromColors(
                     baseColor: Colors.grey,
                     highlightColor: Colors.white,
-                    child: Card(),
+                    child: const Card(),
                   );
                 },
               );

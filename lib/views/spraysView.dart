@@ -38,6 +38,43 @@ class SpraysView extends ConsumerWidget {
                               ));
                             }
                           },
+                          onLongPress: () {
+                            showModalBottomSheet(
+                              context: context,
+                              builder: (context) {
+                                return SizedBox(
+                                    height: 100,
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Card(
+                                            child: Column(
+                                          children: [
+                                            IconButton(
+                                              onPressed: () {},
+                                              icon: const Icon(Icons.share),
+                                              iconSize: 30,
+                                            ),
+                                            const Text("Share")
+                                          ],
+                                        )),
+                                        Card(
+                                            child: Column(
+                                          children: [
+                                            IconButton(
+                                              onPressed: () {},
+                                              icon: const Icon(Icons.download),
+                                              iconSize: 30,
+                                            ),
+                                            const Text("Download")
+                                          ],
+                                        ))
+                                      ],
+                                    ));
+                              },
+                            );
+                          },
                           child: Card(
                             child: Column(
                               children: <Widget>[
