@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sliver_tools/sliver_tools.dart';
 import 'package:valorant/models/weapons/skins.dart';
+import 'package:valorant/views/videoPlayView.dart';
 
 class WeaponSkinView extends ConsumerWidget {
   const WeaponSkinView({super.key});
@@ -53,9 +54,16 @@ class WeaponSkinView extends ConsumerWidget {
                         args.chromas![index].streamedVideo != null
                             ? ElevatedButton.icon(
                                 onPressed: () {
-                                  Navigator.of(context).pushNamed("VideoPlay",
-                                      arguments:
-                                          args.chromas![index].streamedVideo);
+                                  showModalBottomSheet(
+                                    context: context,
+                                    builder: (context) {
+                                      return SizedBox(
+                                        height: 400,
+                                        child: VideoPlayView(
+                                            args.levels![index].streamedVideo!),
+                                      );
+                                    },
+                                  );
                                 },
                                 icon: const Icon(Icons.play_arrow),
                                 label: Text("Play Video".tr()),
@@ -102,16 +110,24 @@ class WeaponSkinView extends ConsumerWidget {
                         args.levels![index].streamedVideo != null
                             ? ElevatedButton.icon(
                                 onPressed: () {
-                                  Navigator.of(context).pushNamed("VideoPlay",
-                                      arguments:
-                                          args.levels![index].streamedVideo);
+                                  showModalBottomSheet(
+                                    elevation: 4,
+                                    context: context,
+                                    builder: (context) {
+                                      return SizedBox(
+                                        height: 400,
+                                        child: VideoPlayView(
+                                            args.levels![index].streamedVideo!),
+                                      );
+                                    },
+                                  );
                                 },
                                 icon: const Icon(Icons.play_arrow),
                                 label: Text("Play Video".tr()),
                               )
                             : const SizedBox.shrink()
                       ],
-                    ))
+                    )),
                   ]);
                 }, childCount: args.levels!.length)),
               )

@@ -11,45 +11,48 @@ class AgentsView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final asyncValue = ref.watch(agentsProvider);
-
-    return Center(
-        child: asyncValue.when(
-            data: (data) {
-              data.removeWhere((x) => x.fullPortrait == null);
-              return data.isNotEmpty
-                  ? GridView.builder(
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 3),
-                      padding: const EdgeInsets.all(10),
-                      itemCount: data.length,
-                      itemBuilder: (context, index) {
-                        return GestureDetector(
-                          onTap: () {
-                            Navigator.of(context)
-                                .pushNamed("Agent", arguments: data[index]);
-                          },
-                          child: Card(
-                            child: Column(
-                              children: <Widget>[
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(vertical: 5),
-                                  child: CircleAvatar(
-                                    backgroundImage:
-                                        NetworkImage(data[index].displayIcon!),
-                                  ),
+    return RefreshIndicator(
+        onRefresh: () async {
+          return await ref.refresh(agentsProvider);
+        },
+        child: Center(
+            child: asyncValue.when(
+                data: (data) {
+                  data.removeWhere((x) => x.fullPortrait == null);
+                  return data.isNotEmpty
+                      ? GridView.builder(
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 3),
+                          padding: const EdgeInsets.all(10),
+                          itemCount: data.length,
+                          itemBuilder: (context, index) {
+                            return GestureDetector(
+                              onTap: () {
+                                Navigator.of(context)
+                                    .pushNamed("Agent", arguments: data[index]);
+                              },
+                              child: Card(
+                                child: Column(
+                                  children: <Widget>[
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 5),
+                                      child: CircleAvatar(
+                                        backgroundImage: NetworkImage(
+                                            data[index].displayIcon!),
+                                      ),
+                                    ),
+                                    Text(data[index].displayName!),
+                                  ],
                                 ),
-                                Text(data[index].displayName!),
-                              ],
-                            ),
-                          ),
-                        );
-                      },
-                    )
-                  : const Text('Data is empty.');
-            },
-            error: (error, _) => Text(error.toString()),
-            loading: () => const CircularProgressIndicator()));
+                              ),
+                            );
+                          },
+                        )
+                      : const Text('Data is empty.');
+                },
+                error: (error, _) => Text(error.toString()),
+                loading: () => const CircularProgressIndicator())));
   }
 }

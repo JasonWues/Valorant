@@ -51,8 +51,6 @@ class MyApp extends ConsumerWidget {
         "Agent": (context) => const AgentView(),
         "Weapon": (context) => const WeaponView(),
         "WeaponSkin": (context) => const WeaponSkinView(),
-        "VideoPlay": (context) =>
-            VideoPlayView(ModalRoute.of(context)!.settings.arguments.toString())
       },
     );
   }
