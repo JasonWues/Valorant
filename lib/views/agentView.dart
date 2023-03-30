@@ -1,7 +1,9 @@
 // ignore_for_file: file_names
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sliver_tools/sliver_tools.dart';
 import 'package:valorant/models/agents/agent.dart';
 
 final selectIndexProvider = StateProvider<int>((ref) {
@@ -14,7 +16,6 @@ class AgentView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final args = ModalRoute.of(context)!.settings.arguments as Agent;
-    final selectIndex = ref.watch(selectIndexProvider);
 
     return Scaffold(
       body: CustomScrollView(slivers: [
@@ -89,42 +90,46 @@ class AgentView extends ConsumerWidget {
                 ),
               )))
             : const SliverToBoxAdapter(child: SizedBox.shrink()),
-        SliverToBoxAdapter(
-          child: Center(
-              child: SizedBox(
-                  height: 100,
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    scrollDirection: Axis.horizontal,
-                    itemCount: args.abilities!.length,
-                    itemBuilder: (context, index) {
-                      return GestureDetector(
-                        onTap: () {
-                          ref
-                              .read(selectIndexProvider.notifier)
-                              .update((state) => state = index);
-                        },
-                        child: args.abilities![index].displayIcon != null
-                            ? Image.network(
-                                args.abilities![index].displayIcon!,
-                                width: 50,
-                                height: 50,
-                                key: const ValueKey("AbilitiesIconImage"),
-                              )
-                            : const SizedBox.shrink(
-                                key: ValueKey("emptyAbilitiesIconShrink"),
-                              ),
-                      );
-                    },
-                  ))),
-        ),
-        SliverToBoxAdapter(
-          child: Card(
-            child: Column(children: [
-              Text(args.abilities![selectIndex].displayName!),
-              Text(args.abilities![selectIndex].description!)
-            ]),
-          ),
+        SliverStack(
+          insetOnOverlap: false,
+          children: [
+            SliverPositioned.fill(
+              child: Card(
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 10, 0, 5),
+                  child: Text("abilities".tr()),
+                ),
+              ),
+            ),
+            SliverPadding(
+                padding: const EdgeInsets.only(top: 35),
+                sliver: SliverList(
+                    delegate: SliverChildBuilderDelegate((context, index) {
+                  return Row(children: [
+                    args.abilities![index].displayIcon != null
+                        ? Image.network(
+                            args.abilities![index].displayIcon!,
+                            width: 50,
+                            height: 50,
+                            key: const ValueKey("AbilitiesIconImage"),
+                          )
+                        : const SizedBox.shrink(
+                            key: ValueKey("emptyAbilitiesIconShrink"),
+                          ),
+                    Expanded(
+                        child: Column(
+                      children: [
+                        Text(
+                          args.abilities![index].displayName!,
+                          style: const TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.w600),
+                        ),
+                        Text(args.abilities![index].description!)
+                      ],
+                    ))
+                  ]);
+                }, childCount: args.abilities!.length)))
+          ],
         )
       ]),
     );

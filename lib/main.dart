@@ -6,7 +6,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'view_models/provider.dart';
 import 'views/agentView.dart';
 import 'views/mainView.dart';
-import 'views/videoPlayView.dart';
 import 'views/weaponSkinView.dart';
 import 'views/weaponView.dart';
 

@@ -42,7 +42,33 @@ class SpraysView extends ConsumerWidget {
                             showModalBottomSheet(
                               context: context,
                               builder: (context) {
-                                return Container();
+                                return Container(
+                                  height: 200,
+                                  decoration: const BoxDecoration(
+                                      borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(10),
+                                          topRight: Radius.circular(10))),
+                                  child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        IconButton(
+                                          onPressed: () {},
+                                          icon: const Icon(Icons.share),
+                                          iconSize: 40,
+                                        ),
+                                        IconButton(
+                                          onPressed: () {},
+                                          icon: const Icon(Icons.download),
+                                          iconSize: 40,
+                                        ),
+                                        IconButton(
+                                          onPressed: () {},
+                                          icon: const Icon(Icons.preview),
+                                          iconSize: 40,
+                                        )
+                                      ]),
+                                );
                               },
                             );
                           },
@@ -64,7 +90,7 @@ class SpraysView extends ConsumerWidget {
                         );
                       },
                     )
-                  : const Text('Data is empty.');
+                  : const Text("Data is empty.");
             },
             error: (error, _) => Text(error.toString()),
             loading: () => const CircularProgressIndicator()));

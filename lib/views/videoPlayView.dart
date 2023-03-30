@@ -57,7 +57,6 @@ class _VideoPlayViewState extends ConsumerState<VideoPlayView> {
                     _controller.play();
                   },
                   child: const Icon(Icons.play_arrow)),
-              ElevatedButton(onPressed: () {}, child: const Icon(Icons.share))
             ],
           )
         ]));
