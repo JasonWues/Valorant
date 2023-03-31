@@ -22,7 +22,7 @@ dependencies:
   easy_image_viewer: ^1.2.0
   shared_preferences: ^2.0.20
   shimmer: ^2.0.0
-  flex_color_scheme: ^6.1.2
+  file_picker: ^5.2.6
 
 dev_dependencies:
   flutter_test:

@@ -25,47 +25,67 @@ class SpraysView extends ConsumerWidget {
                       itemCount: data.length,
                       itemBuilder: (context, index) {
                         return GestureDetector(
-                          onTap: () {
-                            if (data[index].fullIcon != null) {
-                              final imageProvider =
-                                  Image.network(data[index].fullIcon!).image;
-                              showImageViewer(context, imageProvider);
-                            } else {
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(SnackBar(
-                                content: Text(
-                                    "Current Spray Not Found FullImage".tr()),
-                              ));
-                            }
-                          },
                           onLongPress: () {
                             showModalBottomSheet(
                               context: context,
                               builder: (context) {
-                                return Container(
-                                  height: 200,
-                                  decoration: const BoxDecoration(
-                                      borderRadius: BorderRadius.only(
-                                          topLeft: Radius.circular(10),
-                                          topRight: Radius.circular(10))),
+                                return SizedBox(
+                                  height: 130,
                                   child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
-                                        IconButton(
-                                          onPressed: () {},
-                                          icon: const Icon(Icons.share),
-                                          iconSize: 40,
+                                        Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            FloatingActionButton(
+                                              onPressed: () {},
+                                              child: const Icon(Icons.share),
+                                            ),
+                                            Text("Share".tr())
+                                          ],
                                         ),
-                                        IconButton(
-                                          onPressed: () {},
-                                          icon: const Icon(Icons.download),
-                                          iconSize: 40,
+                                        const SizedBox(width: 20),
+                                        Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            FloatingActionButton(
+                                              onPressed: () {},
+                                              child: const Icon(Icons.download),
+                                            ),
+                                            Text("Download".tr())
+                                          ],
                                         ),
-                                        IconButton(
-                                          onPressed: () {},
-                                          icon: const Icon(Icons.preview),
-                                          iconSize: 40,
+                                        const SizedBox(width: 20),
+                                        Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            FloatingActionButton(
+                                              onPressed: () {
+                                                if (data[index].fullIcon !=
+                                                    null) {
+                                                  final imageProvider =
+                                                      Image.network(data[index]
+                                                              .fullIcon!)
+                                                          .image;
+                                                  showImageViewer(
+                                                      context, imageProvider);
+                                                } else {
+                                                  ScaffoldMessenger.of(context)
+                                                      .showSnackBar(SnackBar(
+                                                    content: Text(
+                                                        "Current Spray Not Found FullImage"
+                                                            .tr()),
+                                                  ));
+                                                }
+                                              },
+                                              child: const Icon(Icons.image),
+                                            ),
+                                            Text("Preview".tr())
+                                          ],
                                         )
                                       ]),
                                 );

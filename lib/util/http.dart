@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:file_picker/file_picker.dart';
 
 final dio = Dio(
   BaseOptions(
@@ -13,5 +14,10 @@ class ValorantClientApi {
     if (response.statusCode == 200) {
       return response.data;
     }
+  }
+
+  Future<dynamic> valorantDownload(String url, String name) async {
+    final filepath = await FilePicker.platform.getDirectoryPath();
+    final response = await dio.download(url, "$filepath$name.jpg");
   }
 }

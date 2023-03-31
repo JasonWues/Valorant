@@ -26,40 +26,36 @@ class _VideoPlayViewState extends ConsumerState<VideoPlayView> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        decoration: const BoxDecoration(
-            borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(10), topRight: Radius.circular(10))),
-        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-          _controller.value.isInitialized
-              ? AspectRatio(
-                  aspectRatio: _controller.value.aspectRatio,
-                  child: VideoPlayer(_controller),
-                )
-              : Container(),
-          VideoProgressIndicator(
-            _controller,
-            allowScrubbing: true,
+    return Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+      _controller.value.isInitialized
+          ? AspectRatio(
+              aspectRatio: _controller.value.aspectRatio,
+              child: VideoPlayer(_controller),
+            )
+          : Container(),
+      VideoProgressIndicator(
+        _controller,
+        allowScrubbing: true,
+      ),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          ElevatedButton(
+              onPressed: () {
+                _controller.pause();
+              },
+              child: const Icon(Icons.pause)),
+          const SizedBox(
+            width: 2,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              ElevatedButton(
-                  onPressed: () {
-                    _controller.pause();
-                  },
-                  child: const Icon(Icons.pause)),
-              const SizedBox(
-                width: 2,
-              ),
-              ElevatedButton(
-                  onPressed: () {
-                    _controller.play();
-                  },
-                  child: const Icon(Icons.play_arrow)),
-            ],
-          )
-        ]));
+          ElevatedButton(
+              onPressed: () {
+                _controller.play();
+              },
+              child: const Icon(Icons.play_arrow)),
+        ],
+      )
+    ]);
   }
 
   @override

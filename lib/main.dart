@@ -1,5 +1,4 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -30,14 +29,12 @@ class MyApp extends ConsumerWidget {
     final darkMode = ref.watch(darkModeProvider);
     return MaterialApp(
       title: "Valorant",
-      theme: FlexThemeData.light(
-          fontFamily: "SourceHanSansSC",
-          useMaterial3: true,
-          scheme: FlexScheme.bahamaBlue),
-      darkTheme: FlexThemeData.dark(
-          fontFamily: "SourceHanSansSC",
-          useMaterial3: true,
-          scheme: FlexScheme.bahamaBlue),
+      theme: ThemeData.light(
+        useMaterial3: true,
+      ),
+      darkTheme: ThemeData.dark(
+        useMaterial3: true,
+      ),
       themeMode: ThemeMode.values[darkMode],
       debugShowCheckedModeBanner: false,
       initialRoute: "Home",
