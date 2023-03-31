@@ -26,12 +26,13 @@ class WeaponSkinView extends ConsumerWidget {
             insetOnOverlap: false,
             children: [
               SliverPositioned.fill(
+                  bottom: -10,
                   child: Card(
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 10, 0, 5),
-                  child: Text("chromas".tr()),
-                ),
-              )),
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(20, 10, 0, 5),
+                      child: Text("chromas".tr()),
+                    ),
+                  )),
               SliverPadding(
                 padding: const EdgeInsetsDirectional.only(top: 35),
                 sliver: SliverList(
@@ -76,16 +77,22 @@ class WeaponSkinView extends ConsumerWidget {
               )
             ],
           ),
+          const SliverToBoxAdapter(
+            child: SizedBox(
+              height: 10,
+            ),
+          ),
           SliverStack(
             insetOnOverlap: false,
             children: [
               SliverPositioned.fill(
+                  bottom: -10,
                   child: Card(
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 10, 0, 5),
-                  child: Text("levels".tr()),
-                ),
-              )),
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(20, 10, 0, 5),
+                      child: Text("levels".tr()),
+                    ),
+                  )),
               SliverPadding(
                 padding: const EdgeInsetsDirectional.only(top: 35),
                 sliver: SliverList(
@@ -99,7 +106,16 @@ class WeaponSkinView extends ConsumerWidget {
                               filterQuality: FilterQuality.high,
                               fit: BoxFit.contain,
                             ))
-                        : const SizedBox.shrink(),
+                        : const Expanded(
+                            flex: 2,
+                            child: SizedBox(
+                              width: 512,
+                              height: 60,
+                              child: Align(
+                                alignment: Alignment.center,
+                                child: Text("No Image"),
+                              ),
+                            )),
                     Expanded(
                         child: Column(
                       children: [

@@ -28,7 +28,6 @@ class MyApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final darkMode = ref.watch(darkModeProvider);
-
     return MaterialApp(
       title: "Valorant",
       theme: FlexThemeData.light(
@@ -39,7 +38,7 @@ class MyApp extends ConsumerWidget {
           fontFamily: "SourceHanSansSC",
           useMaterial3: true,
           scheme: FlexScheme.bahamaBlue),
-      themeMode: darkMode ? ThemeMode.dark : ThemeMode.light,
+      themeMode: ThemeMode.values[darkMode],
       debugShowCheckedModeBanner: false,
       initialRoute: "Home",
       localizationsDelegates: context.localizationDelegates,

@@ -35,6 +35,6 @@ final versionProvider = FutureProvider<Version>((ref) async {
   return await repository.gerVersion();
 });
 
-final darkModeProvider = StateNotifierProvider<DarkModeNotifier, bool>(
+final darkModeProvider = StateNotifierProvider<DarkModeNotifier, int>(
   (ref) => DarkModeNotifier(),
 );

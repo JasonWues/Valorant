@@ -6,10 +6,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sliver_tools/sliver_tools.dart';
 import 'package:valorant/models/agents/agent.dart';
 
-final selectIndexProvider = StateProvider<int>((ref) {
-  return 0;
-});
-
 class AgentView extends ConsumerWidget {
   const AgentView({super.key});
 

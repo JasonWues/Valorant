@@ -49,7 +49,7 @@ class AgentsView extends ConsumerWidget {
                         );
                       },
                     )
-                  : const Text('Data is empty.');
+                  : const Text("Data is empty.");
             },
             error: (error, _) => Text(error.toString()),
             loading: () => const CircularProgressIndicator()));

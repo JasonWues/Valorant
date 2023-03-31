@@ -21,6 +21,7 @@ class MainView extends ConsumerWidget {
     final selectindex = ref.watch(selectIndexProvider);
     final darkMode = ref.watch(darkModeProvider);
     final version = ref.watch(versionProvider);
+    final List<bool> isSelect = [false, false, false]..[darkMode] = true;
     final views = <Widget>[
       const AgentsView(),
       const WeaponsView(),
@@ -49,13 +50,17 @@ class MainView extends ConsumerWidget {
                 Navigator.pop(context);
               },
             ),
-            SwitchListTile(
-              title: Text("Dark Mode".tr()),
-              secondary: const Icon(Icons.dark_mode),
-              value: darkMode,
-              onChanged: (value) {
-                ref.read(darkModeProvider.notifier).toggle();
+            ToggleButtons(
+              isSelected: isSelect,
+              onPressed: (index) {
+                ref.read(darkModeProvider.notifier).toggle(index);
               },
+              borderRadius: BorderRadius.circular(10),
+              children: const [
+                Icon(Icons.brightness_medium),
+                Icon(Icons.light_mode),
+                Icon(Icons.dark_mode)
+              ],
             ),
             AboutListTile(
               icon: const Icon(Icons.info),
