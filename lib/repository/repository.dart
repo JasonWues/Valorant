@@ -9,7 +9,7 @@ import '../util/http.dart';
 class Repository {
   final api = ValorantClientApi();
   Future<List<Agent>> getAgents() async {
-    final result = await api.valorantGet("/v1/agents");
+    final result = await api.valorantGet("https://valorant-api.com/v1/agents");
     final data = result["data"] as List<dynamic>;
     List<Agent> agents = <Agent>[];
     for (var i = 0; i < data.length; i++) {
@@ -19,7 +19,7 @@ class Repository {
   }
 
   Future<List<Weapon>> getWeapons() async {
-    final result = await api.valorantGet("/v1/weapons");
+    final result = await api.valorantGet("https://valorant-api.com/v1/weapons");
     final data = result["data"] as List<dynamic>;
     List<Weapon> weapons = <Weapon>[];
     for (var i = 0; i < data.length; i++) {
@@ -29,7 +29,7 @@ class Repository {
   }
 
   Future<List<Spray>> getSprays() async {
-    final result = await api.valorantGet("/v1/sprays");
+    final result = await api.valorantGet("https://valorant-api.com/v1/sprays");
     final data = result["data"] as List<dynamic>;
     List<Spray> sprays = <Spray>[];
     for (var i = 0; i < data.length; i++) {
@@ -39,7 +39,7 @@ class Repository {
   }
 
   Future<List<Buddy>> getBuddies() async {
-    final result = await api.valorantGet("/v1/buddies");
+    final result = await api.valorantGet("https://valorant-api.com/v1/buddies");
     final data = result["data"] as List<dynamic>;
     List<Buddy> buddies = <Buddy>[];
     for (var i = 0; i < data.length; i++) {
@@ -49,8 +49,13 @@ class Repository {
   }
 
   Future<Version> gerVersion() async {
-    final result = await api.valorantGet("/v1/version");
+    final result = await api.valorantGet("https://valorant-api.com/v1/version");
     final data = Version.fromJson(result["data"]);
     return data;
+  }
+
+  Future<dynamic> download(String url, String fileName) async {
+    final result = await api.valorantDownload(url, fileName);
+    return result;
   }
 }

@@ -2,8 +2,10 @@
 
 import 'package:easy_image_viewer/easy_image_viewer.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:path/path.dart' as path;
 
 import '../view_models/provider.dart';
 
@@ -13,6 +15,7 @@ class SpraysView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final asyncValue = ref.watch(spraysProvider);
+    final repository = ref.read(repositoryProvider);
     return Center(
         child: asyncValue.when(
             data: (data) {
@@ -52,7 +55,19 @@ class SpraysView extends ConsumerWidget {
                                               MainAxisAlignment.center,
                                           children: [
                                             FloatingActionButton(
-                                              onPressed: () {},
+                                              onPressed: () async {
+                                                final filepath =
+                                                    await FilePicker.platform
+                                                        .getDirectoryPath();
+                                                if (filepath != null) {
+                                                  final fileName = path.join(
+                                                      filepath,
+                                                      "${data[index].displayName!}.jpg");
+                                                  await repository.download(
+                                                      data[index].displayIcon!,
+                                                      fileName);
+                                                }
+                                              },
                                               child: const Icon(Icons.download),
                                             ),
                                             Text("Download".tr())

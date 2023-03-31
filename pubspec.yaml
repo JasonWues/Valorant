@@ -23,6 +23,7 @@ dependencies:
   shared_preferences: ^2.0.20
   shimmer: ^2.0.0
   file_picker: ^5.2.6
+  path: ^1.8.2
 
 dev_dependencies:
   flutter_test:
