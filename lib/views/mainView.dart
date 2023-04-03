@@ -50,16 +50,53 @@ class MainView extends ConsumerWidget {
                 Navigator.pop(context);
               },
             ),
-            ToggleButtons(
-              isSelected: isSelect,
-              onPressed: (index) {
-                ref.read(darkModeProvider.notifier).toggle(index);
-              },
-              borderRadius: BorderRadius.circular(10),
-              children: const [
-                Icon(Icons.brightness_medium),
-                Icon(Icons.light_mode),
-                Icon(Icons.dark_mode)
+            Row(children: [
+              const Expanded(
+                child: ListTile(
+                  leading: Icon(
+                    Icons.dark_mode,
+                  ),
+                  title: Text("Theme"),
+                ),
+              ),
+              ToggleButtons(
+                isSelected: isSelect,
+                onPressed: (index) {
+                  ref.read(darkModeProvider.notifier).toggle(index);
+                },
+                borderRadius: BorderRadius.circular(10),
+                children: const [
+                  Icon(Icons.brightness_medium),
+                  Icon(Icons.light_mode),
+                  Icon(Icons.dark_mode)
+                ],
+              ),
+            ]),
+            Row(
+              children: [
+                const Expanded(
+                  child: ListTile(
+                    leading: Icon(
+                      Icons.language,
+                    ),
+                    title: Text("Language"),
+                  ),
+                ),
+                DropdownButton<Locale>(
+                  value: context.locale,
+                  items: context.supportedLocales
+                      .map<DropdownMenuItem<Locale>>((locale) {
+                    return DropdownMenuItem<Locale>(
+                      value: locale,
+                      child: Text(
+                        locale.toString(),
+                      ),
+                    );
+                  }).toList(),
+                  onChanged: (value) {
+                    context.setLocale(value!);
+                  },
+                )
               ],
             ),
             AboutListTile(
