@@ -4,6 +4,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:search_page/search_page.dart';
 import 'package:valorant/views/buddies.dart';
 import 'package:valorant/views/spraysView.dart';
 import 'package:valorant/views/weaponsView.dart';
@@ -13,14 +14,22 @@ import 'agentsView.dart';
 
 final selectIndexProvider = StateProvider<int>((ref) => 0);
 
-class MainView extends ConsumerWidget {
+class MainView extends ConsumerStatefulWidget {
   const MainView({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<ConsumerStatefulWidget> createState() => _MainViewState();
+}
+
+class _MainViewState extends ConsumerState<MainView> {
+  final TextEditingController textController = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
     final selectindex = ref.watch(selectIndexProvider);
     final darkMode = ref.watch(darkModeProvider);
     final version = ref.watch(versionProvider);
+
     final List<bool> isSelect = [false, false, false]..[darkMode] = true;
     final views = <Widget>[
       const AgentsView(),
@@ -54,7 +63,7 @@ class MainView extends ConsumerWidget {
               const Expanded(
                 child: ListTile(
                   leading: Icon(
-                    Icons.dark_mode,
+                    Icons.settings_brightness,
                   ),
                   title: Text("Theme"),
                 ),
@@ -71,6 +80,9 @@ class MainView extends ConsumerWidget {
                   Icon(Icons.dark_mode)
                 ],
               ),
+              const SizedBox(
+                width: 20,
+              )
             ]),
             Row(
               children: [
@@ -89,13 +101,16 @@ class MainView extends ConsumerWidget {
                     return DropdownMenuItem<Locale>(
                       value: locale,
                       child: Text(
-                        locale.toString(),
+                        locale.toString().tr(),
                       ),
                     );
                   }).toList(),
                   onChanged: (value) {
                     context.setLocale(value!);
                   },
+                ),
+                const SizedBox(
+                  width: 20,
                 )
               ],
             ),
@@ -149,5 +164,11 @@ class MainView extends ConsumerWidget {
         },
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    textController.dispose();
+    super.dispose();
   }
 }

@@ -35,7 +35,10 @@
     "false":"false",
     "to":"to",
     "Current Spray Not Found FullImage":"Current Spray Not Found FullImage",
+    "Current Buddies Not Found FullImage":"Current Buddies Not Found FullImage",
     "Dark Mode":"Dark Mode",
     "Play Video":"Play Video",
-    "abilities":"Abilities"
+    "abilities":"Abilities",
+    "zh_CN":"中文",
+    "en_US":"English"
 }

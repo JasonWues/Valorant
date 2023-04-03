@@ -1,5 +1,9 @@
+import 'package:easy_image_viewer/easy_image_viewer.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:path/path.dart' as path;
 
 import '../view_models/provider.dart';
 
@@ -9,6 +13,7 @@ class BuddiesView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final asyncValue = ref.watch(buddiesProvider);
+    final repository = ref.read(repositoryProvider);
     return Center(
         child: asyncValue.when(
             data: (data) {
@@ -21,7 +26,87 @@ class BuddiesView extends ConsumerWidget {
                       itemCount: data.length,
                       itemBuilder: (context, index) {
                         return GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+                            showModalBottomSheet(
+                                context: context,
+                                builder: (context) {
+                                  return SizedBox(
+                                    height: 130,
+                                    child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              FloatingActionButton(
+                                                onPressed: () {},
+                                                child: const Icon(Icons.share),
+                                              ),
+                                              Text("Share".tr())
+                                            ],
+                                          ),
+                                          const SizedBox(width: 20),
+                                          Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              FloatingActionButton(
+                                                onPressed: () async {
+                                                  final filepath =
+                                                      await FilePicker.platform
+                                                          .getDirectoryPath();
+                                                  if (filepath != null) {
+                                                    final fileName = path.join(
+                                                        filepath,
+                                                        "${data[index].displayName!}.jpg");
+                                                    await repository.download(
+                                                        data[index]
+                                                            .displayIcon!,
+                                                        fileName);
+                                                  }
+                                                },
+                                                child:
+                                                    const Icon(Icons.download),
+                                              ),
+                                              Text("Download".tr())
+                                            ],
+                                          ),
+                                          const SizedBox(width: 20),
+                                          Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              FloatingActionButton(
+                                                onPressed: () {
+                                                  if (data[index].displayIcon !=
+                                                      null) {
+                                                    final imageProvider = Image
+                                                            .network(data[index]
+                                                                .displayIcon!)
+                                                        .image;
+                                                    showImageViewer(
+                                                        context, imageProvider);
+                                                  } else {
+                                                    ScaffoldMessenger.of(
+                                                            context)
+                                                        .showSnackBar(SnackBar(
+                                                      content: Text(
+                                                          "Current Buddies Not Found FullImage"
+                                                              .tr()),
+                                                    ));
+                                                  }
+                                                },
+                                                child: const Icon(Icons.image),
+                                              ),
+                                              Text("Preview".tr())
+                                            ],
+                                          )
+                                        ]),
+                                  );
+                                });
+                          },
                           child: Card(
                             child: Column(
                               children: <Widget>[
@@ -40,7 +125,7 @@ class BuddiesView extends ConsumerWidget {
                         );
                       },
                     )
-                  : const Text('Data is empty.');
+                  : const Text("Data is empty.");
             },
             error: (error, _) => Text(error.toString()),
             loading: () => const CircularProgressIndicator()));

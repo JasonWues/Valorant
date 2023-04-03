@@ -28,7 +28,7 @@ class SpraysView extends ConsumerWidget {
                       itemCount: data.length,
                       itemBuilder: (context, index) {
                         return GestureDetector(
-                          onLongPress: () {
+                          onTap: () {
                             showModalBottomSheet(
                               context: context,
                               builder: (context) {

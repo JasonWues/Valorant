@@ -35,7 +35,10 @@
     "false":"否",
     "to":"到",
     "Current Spray Not Found FullImage":"当前喷雾的大图未找到",
+    "Current Buddies Not Found FullImage":"当前挂饰的大图未找到",
     "Dark Mode":"黑夜模式",
     "Play Video":"播放视频",
-    "abilities":"技能"
+    "abilities":"技能",
+    "zh_CN":"中文",
+    "en_US":"English"
 }
