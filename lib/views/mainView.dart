@@ -133,9 +133,9 @@ class _MainViewState extends ConsumerState<MainView> {
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         items: <BottomNavigationBarItem>[
-          const BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: "Agents",
+          BottomNavigationBarItem(
+            icon: const Icon(Icons.person),
+            label: "Agents".tr(),
           ),
           BottomNavigationBarItem(
             icon: SvgPicture.asset(
