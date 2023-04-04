@@ -6,6 +6,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:path/path.dart' as path;
+import 'package:shimmer/shimmer.dart';
 
 import '../view_models/provider.dart';
 
@@ -128,6 +129,41 @@ class SpraysView extends ConsumerWidget {
                   : const Text("Data is empty.");
             },
             error: (error, _) => Text(error.toString()),
-            loading: () => const CircularProgressIndicator()));
+            loading: () {
+              return GridView.builder(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3),
+                itemCount: 20,
+                itemBuilder: (context, index) {
+                  return Card(
+                    child: Column(children: [
+                      const SizedBox(height: 10),
+                      Shimmer.fromColors(
+                          baseColor: Colors.grey[400]!,
+                          highlightColor: Colors.grey[300]!,
+                          child: Container(
+                            height: 36,
+                            width: 36,
+                            decoration: const ShapeDecoration(
+                                shape: CircleBorder(), color: Colors.grey),
+                          )),
+                      const SizedBox(height: 10),
+                      Shimmer.fromColors(
+                          baseColor: Colors.grey[400]!,
+                          highlightColor: Colors.grey[300]!,
+                          child: Container(
+                            height: 18,
+                            width: 85,
+                            decoration: ShapeDecoration(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius:
+                                        BorderRadius.circular(36 / 2)),
+                                color: Colors.grey),
+                          ))
+                    ]),
+                  );
+                },
+              );
+            }));
   }
 }

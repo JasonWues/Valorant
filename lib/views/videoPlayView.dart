@@ -12,16 +12,22 @@ class VideoPlayView extends ConsumerStatefulWidget {
   ConsumerState<ConsumerStatefulWidget> createState() => _VideoPlayViewState();
 }
 
-class _VideoPlayViewState extends ConsumerState<VideoPlayView> {
+class _VideoPlayViewState extends ConsumerState<VideoPlayView>
+    with SingleTickerProviderStateMixin {
   late VideoPlayerController _controller;
+  late AnimationController animationController;
 
   @override
   void initState() {
     super.initState();
     _controller = VideoPlayerController.network(widget.url)
       ..initialize().then((_) {
-        setState(() {});
+        setState(() {
+          _controller.play();
+        });
       });
+    animationController =
+        AnimationController(duration: const Duration(seconds: 1), vsync: this);
   }
 
   @override
@@ -37,23 +43,27 @@ class _VideoPlayViewState extends ConsumerState<VideoPlayView> {
         _controller,
         allowScrubbing: true,
       ),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          ElevatedButton(
-              onPressed: () {
-                _controller.pause();
-              },
-              child: const Icon(Icons.pause)),
-          const SizedBox(
-            width: 2,
-          ),
-          ElevatedButton(
-              onPressed: () {
-                _controller.play();
-              },
-              child: const Icon(Icons.play_arrow)),
-        ],
+      const SizedBox(
+        height: 20,
+      ),
+      FloatingActionButton(
+        onPressed: () {
+          setState(() {
+            _controller.value.isPlaying
+                ? _controller.pause()
+                : _controller.play();
+
+            if (animationController.isDismissed) {
+              animationController.forward();
+            } else {
+              animationController.reverse();
+            }
+          });
+        },
+        child: AnimatedIcon(
+          icon: AnimatedIcons.pause_play,
+          progress: animationController,
+        ),
       )
     ]);
   }
@@ -61,6 +71,7 @@ class _VideoPlayViewState extends ConsumerState<VideoPlayView> {
   @override
   void dispose() {
     _controller.dispose();
+    animationController.dispose();
     super.dispose();
   }
 }
