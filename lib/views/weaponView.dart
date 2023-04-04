@@ -241,6 +241,11 @@ class WeaponView extends ConsumerWidget {
               sliver: SliverList(
                 delegate: SliverChildBuilderDelegate((context, index) {
                   if (skins[index].displayName != null) {
+                    if (skins[index].displayName == "Standard".tr() ||
+                        skins[index].displayName ==
+                            "Random Favorite Skin".tr()) {
+                      return const SizedBox.shrink();
+                    }
                     return skins[index].displayIcon != null
                         ? Stack(
                             children: [
