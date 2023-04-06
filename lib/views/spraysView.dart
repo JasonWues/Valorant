@@ -17,7 +17,10 @@ class SpraysView extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final asyncValue = ref.watch(spraysProvider);
     final repository = ref.read(repositoryProvider);
-    return Center(
+    return RefreshIndicator(
+        onRefresh: () async {
+          return await ref.refresh(spraysProvider.future);
+        },
         child: asyncValue.when(
             data: (data) {
               return data.isNotEmpty

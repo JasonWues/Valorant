@@ -6,13 +6,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
 import 'package:valorant/views/buddies.dart';
+import 'package:valorant/views/searchView.dart';
 import 'package:valorant/views/spraysView.dart';
 import 'package:valorant/views/weaponsView.dart';
 
+import '../themes/colors.dart';
 import '../view_models/provider.dart';
 import 'agentsView.dart';
-
-final selectIndexProvider = StateProvider<int>((ref) => 0);
 
 class MainView extends ConsumerStatefulWidget {
   const MainView({super.key});
@@ -32,7 +32,6 @@ class _MainViewState extends ConsumerState<MainView> {
 
   @override
   Widget build(BuildContext context) {
-    final selectindex = ref.watch(selectIndexProvider);
     final darkMode = ref.watch(darkModeProvider);
     final version = ref.watch(versionProvider);
 
@@ -40,29 +39,36 @@ class _MainViewState extends ConsumerState<MainView> {
     final views = <Widget>[
       const AgentsView(),
       const WeaponsView(),
+      const SearchView(),
       const SpraysView(),
       const BuddiesView()
     ];
 
-    List<PersistentBottomNavBarItem> _navBarsItems() {
+    List<PersistentBottomNavBarItem> navBarsItems() {
       return [
         PersistentBottomNavBarItem(
-          icon: const Icon(Icons.person),
-          title: "Agents".tr(),
-        ),
+            icon: const Icon(Icons.person),
+            title: "Agents".tr(),
+            activeColorPrimary: primaryColor),
         PersistentBottomNavBarItem(
             icon: SvgPicture.asset(
               "assets/svg/Weapons.svg",
-              colorFilter: const ColorFilter.mode(
-                  Color.fromRGBO(111, 111, 112, 1.0), BlendMode.srcIn),
+              colorFilter: ColorFilter.mode(primaryColor, BlendMode.srcIn),
             ),
-            title: "Weapons".tr()),
+            title: "Weapons".tr(),
+            activeColorPrimary: primaryColor),
         PersistentBottomNavBarItem(
-          icon: Icon(Icons.school),
-          title: "Sprays".tr(),
-        ),
+            icon: const Icon(Icons.search),
+            title: "Search".tr(),
+            activeColorPrimary: primaryColor),
         PersistentBottomNavBarItem(
-            icon: Icon(Icons.school), title: "Buddies".tr())
+            icon: Icon(Icons.school),
+            title: "Sprays".tr(),
+            activeColorPrimary: primaryColor),
+        PersistentBottomNavBarItem(
+            icon: Icon(Icons.school),
+            title: "Buddies".tr(),
+            activeColorPrimary: primaryColor)
       ];
     }
 
@@ -74,13 +80,19 @@ class _MainViewState extends ConsumerState<MainView> {
         context,
         controller: _controller,
         screens: views,
-        items: _navBarsItems(),
+        items: navBarsItems(),
+        backgroundColor: Theme.of(context).primaryColor,
         screenTransitionAnimation: const ScreenTransitionAnimation(
           animateTabTransition: true,
           curve: Curves.ease,
           duration: Duration(milliseconds: 200),
         ),
-        navBarStyle: NavBarStyle.style1,
+        itemAnimationProperties: const ItemAnimationProperties(
+            duration: Duration(milliseconds: 200), curve: Curves.ease),
+        decoration: NavBarDecoration(
+            borderRadius: BorderRadius.circular(10),
+            colorBehindNavBar: Colors.white),
+        navBarStyle: NavBarStyle.style9,
       ),
       drawer: Drawer(
         child: ListView(
