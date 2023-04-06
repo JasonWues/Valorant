@@ -43,7 +43,12 @@ class WeaponsView extends ConsumerWidget {
                       })
                   : const Text("Data is empty.");
             },
-            error: (error, _) => Text(error.toString()),
+            error: (error, _) => Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(32.0),
+                    child: Card(elevation: 4, child: Text(error.toString())),
+                  ),
+                ),
             loading: () {
               return GridView.builder(
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
