@@ -4,7 +4,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
 import 'package:valorant/views/buddies.dart';
 import 'package:valorant/views/searchView.dart';
 import 'package:valorant/views/spraysView.dart';
@@ -22,13 +21,7 @@ class MainView extends ConsumerStatefulWidget {
 }
 
 class _MainViewState extends ConsumerState<MainView> {
-  late PersistentTabController _controller;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = PersistentTabController(initialIndex: 0);
-  }
+  final TextEditingController textController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -44,56 +37,11 @@ class _MainViewState extends ConsumerState<MainView> {
       const BuddiesView()
     ];
 
-    List<PersistentBottomNavBarItem> navBarsItems() {
-      return [
-        PersistentBottomNavBarItem(
-            icon: const Icon(Icons.person),
-            title: "Agents".tr(),
-            activeColorPrimary: primaryColor),
-        PersistentBottomNavBarItem(
-            icon: SvgPicture.asset(
-              "assets/svg/Weapons.svg",
-              colorFilter: ColorFilter.mode(primaryColor, BlendMode.srcIn),
-            ),
-            title: "Weapons".tr(),
-            activeColorPrimary: primaryColor),
-        PersistentBottomNavBarItem(
-            icon: const Icon(Icons.search),
-            title: "Search".tr(),
-            activeColorPrimary: primaryColor),
-        PersistentBottomNavBarItem(
-            icon: Icon(Icons.school),
-            title: "Sprays".tr(),
-            activeColorPrimary: primaryColor),
-        PersistentBottomNavBarItem(
-            icon: Icon(Icons.school),
-            title: "Buddies".tr(),
-            activeColorPrimary: primaryColor)
-      ];
-    }
-
     return Scaffold(
       appBar: AppBar(
         title: const Text("Valorant"),
       ),
-      body: PersistentTabView(
-        context,
-        controller: _controller,
-        screens: views,
-        items: navBarsItems(),
-        backgroundColor: Theme.of(context).primaryColor,
-        screenTransitionAnimation: const ScreenTransitionAnimation(
-          animateTabTransition: true,
-          curve: Curves.ease,
-          duration: Duration(milliseconds: 200),
-        ),
-        itemAnimationProperties: const ItemAnimationProperties(
-            duration: Duration(milliseconds: 200), curve: Curves.ease),
-        decoration: NavBarDecoration(
-            borderRadius: BorderRadius.circular(10),
-            colorBehindNavBar: Colors.white),
-        navBarStyle: NavBarStyle.style9,
-      ),
+      body: views[selectindex],
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
@@ -182,12 +130,44 @@ class _MainViewState extends ConsumerState<MainView> {
           ],
         ),
       ),
+      bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: const Icon(Icons.person),
+            label: "Agents".tr(),
+          ),
+          BottomNavigationBarItem(
+            icon: SvgPicture.asset(
+              "assets/svg/Weapons.svg",
+              colorFilter: const ColorFilter.mode(
+                  Color.fromRGBO(111, 111, 112, 1.0), BlendMode.srcIn),
+            ),
+            activeIcon: SvgPicture.asset(
+              "assets/svg/Weapons.svg",
+            ),
+            label: "Weapons".tr(),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.school),
+            label: "Sprays".tr(),
+          ),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.school), label: "Buddies".tr())
+        ],
+        currentIndex: selectindex,
+        onTap: (value) {
+          ref
+              .read(selectIndexProvider.notifier)
+              .update((state) => state = value);
+        },
+      ),
     );
   }
 
   @override
   void dispose() {
-    _controller.dispose();
+    textController.dispose();
     super.dispose();
   }
 }
