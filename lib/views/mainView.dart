@@ -13,6 +13,8 @@ import '../themes/colors.dart';
 import '../view_models/provider.dart';
 import 'agentsView.dart';
 
+final selectIndexProvider = StateProvider<int>((ref) => 0);
+
 class MainView extends ConsumerStatefulWidget {
   const MainView({super.key});
 
@@ -27,6 +29,7 @@ class _MainViewState extends ConsumerState<MainView> {
   Widget build(BuildContext context) {
     final darkMode = ref.watch(darkModeProvider);
     final version = ref.watch(versionProvider);
+    final selectindex = ref.watch(selectIndexProvider);
 
     final List<bool> isSelect = [false, false, false]..[darkMode] = true;
     final views = <Widget>[
