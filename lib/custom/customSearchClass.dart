@@ -1,13 +1,12 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import '../view_models/provider.dart';
+import 'package:valorant/models/searchModel.dart';
 
 class CustomSearchClass extends SearchDelegate {
-  late WidgetRef ref;
-  CustomSearchClass(this.ref);
+  late List<SearchModel> searchList;
+  CustomSearchClass(this.searchList);
+
   @override
   List<Widget>? buildActions(BuildContext context) {
     return [
@@ -32,27 +31,19 @@ class CustomSearchClass extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
-    final searchList = ref.watch(searchpProvider(query));
+    searchList = searchList
+        .where((element) => element.displayName!.contains(query))
+        .toList();
     return Center(
-        child: searchList.when(
-      data: (data) {
-        return ListView.builder(
-          itemBuilder: (context, index) {
-            return ListTile(
-              leading: CircleAvatar(
-                  backgroundImage: NetworkImage(data[index].displayIcon!)),
-              title: Text(data[index].displayName!),
-            );
-          },
-          itemCount: data.length,
+        child: ListView.builder(
+      itemBuilder: (context, index) {
+        return ListTile(
+          leading: CircleAvatar(
+              backgroundImage: NetworkImage(searchList[index].displayIcon!)),
+          title: Text(searchList[index].displayName!),
         );
       },
-      error: (error, stackTrace) {
-        return Text(error.toString());
-      },
-      loading: () {
-        return const CircularProgressIndicator();
-      },
+      itemCount: searchList.length,
     ));
   }
 

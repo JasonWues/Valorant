@@ -8,6 +8,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:path/path.dart' as path;
 import 'package:shimmer/shimmer.dart';
 
+import '../custom/customSearchClass.dart';
+import '../models/searchModel.dart';
 import '../view_models/provider.dart';
 
 class SpraysView extends ConsumerWidget {
@@ -17,23 +19,44 @@ class SpraysView extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final asyncValue = ref.watch(spraysProvider);
     final repository = ref.read(repositoryProvider);
-    return RefreshIndicator(
-        onRefresh: () async {
-          return await ref.refresh(spraysProvider.future);
-        },
-        child: asyncValue.when(
-            data: (data) {
-              return data.isNotEmpty
-                  ? GridView.builder(
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 3),
-                      padding: const EdgeInsets.all(10),
-                      itemCount: data.length,
-                      itemBuilder: (context, index) {
-                        return GestureDetector(
-                          onTap: () {
-                            showModalBottomSheet(
+    return CustomScrollView(slivers: [
+      SliverAppBar(
+        forceElevated: true,
+        elevation: 4,
+        floating: true,
+        snap: true,
+        title: const Text(
+          "Valorant",
+        ),
+        actions: <Widget>[
+          IconButton(
+            icon: const Icon(
+              Icons.search,
+            ),
+            onPressed: () {
+              showSearch(
+                  context: context,
+                  delegate: CustomSearchClass(asyncValue.value!
+                      .map((spray) => SearchModel(
+                          displayIcon: spray.displayIcon,
+                          displayName: spray.displayName))
+                      .toList()));
+            },
+          ),
+        ],
+      ),
+      asyncValue.when(
+          data: (data) {
+            return data.isNotEmpty
+                ? SliverGrid.builder(
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 3),
+                    itemCount: data.length,
+                    itemBuilder: (context, index) {
+                      return GestureDetector(
+                        onTap: () {
+                          showModalBottomSheet(
                               context: context,
                               builder: (context) {
                                 return SizedBox(
@@ -84,11 +107,11 @@ class SpraysView extends ConsumerWidget {
                                           children: [
                                             FloatingActionButton(
                                               onPressed: () {
-                                                if (data[index].fullIcon !=
+                                                if (data[index].displayIcon !=
                                                     null) {
                                                   final imageProvider =
                                                       Image.network(data[index]
-                                                              .fullIcon!)
+                                                              .displayIcon!)
                                                           .image;
                                                   showImageViewer(
                                                       context, imageProvider);
@@ -96,7 +119,7 @@ class SpraysView extends ConsumerWidget {
                                                   ScaffoldMessenger.of(context)
                                                       .showSnackBar(SnackBar(
                                                     content: Text(
-                                                        "Current Spray Not Found FullImage"
+                                                        "Current Buddies Not Found FullImage"
                                                             .tr()),
                                                   ));
                                                 }
@@ -108,65 +131,65 @@ class SpraysView extends ConsumerWidget {
                                         )
                                       ]),
                                 );
-                              },
-                            );
-                          },
-                          child: Card(
-                            child: Column(
-                              children: <Widget>[
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(vertical: 5),
-                                  child: CircleAvatar(
-                                    backgroundImage:
-                                        NetworkImage(data[index].displayIcon!),
-                                  ),
+                              });
+                        },
+                        child: Card(
+                          child: Column(
+                            children: <Widget>[
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 5),
+                                child: CircleAvatar(
+                                  backgroundImage:
+                                      NetworkImage(data[index].displayIcon!),
                                 ),
-                                Text(data[index].displayName!),
-                              ],
-                            ),
+                              ),
+                              Text(data[index].displayName!),
+                            ],
                           ),
-                        );
-                      },
-                    )
-                  : const Text("Data is empty.");
-            },
-            error: (error, _) => Text(error.toString()),
-            loading: () {
-              return GridView.builder(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3),
-                itemCount: 20,
-                itemBuilder: (context, index) {
-                  return Card(
-                    child: Column(children: [
-                      const SizedBox(height: 10),
-                      Shimmer.fromColors(
-                          baseColor: Colors.grey[400]!,
-                          highlightColor: Colors.grey[300]!,
-                          child: Container(
-                            height: 36,
-                            width: 36,
-                            decoration: const ShapeDecoration(
-                                shape: CircleBorder(), color: Colors.grey),
-                          )),
-                      const SizedBox(height: 10),
-                      Shimmer.fromColors(
-                          baseColor: Colors.grey[400]!,
-                          highlightColor: Colors.grey[300]!,
-                          child: Container(
-                            height: 18,
-                            width: 85,
-                            decoration: ShapeDecoration(
-                                shape: RoundedRectangleBorder(
-                                    borderRadius:
-                                        BorderRadius.circular(36 / 2)),
-                                color: Colors.grey),
-                          ))
-                    ]),
-                  );
-                },
-              );
-            }));
+                        ),
+                      );
+                    },
+                  )
+                : const SliverToBoxAdapter(child: Text("Data is empty."));
+          },
+          error: (error, _) =>
+              SliverToBoxAdapter(child: Text(error.toString())),
+          loading: () {
+            return SliverGrid.builder(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3),
+              itemCount: 20,
+              itemBuilder: (context, index) {
+                return Card(
+                  child: Column(children: [
+                    const SizedBox(height: 10),
+                    Shimmer.fromColors(
+                        baseColor: Colors.grey[400]!,
+                        highlightColor: Colors.grey[300]!,
+                        child: Container(
+                          height: 36,
+                          width: 36,
+                          decoration: const ShapeDecoration(
+                              shape: CircleBorder(), color: Colors.grey),
+                        )),
+                    const SizedBox(height: 10),
+                    Shimmer.fromColors(
+                        baseColor: Colors.grey[400]!,
+                        highlightColor: Colors.grey[300]!,
+                        child: Container(
+                          height: 18,
+                          width: 85,
+                          decoration: ShapeDecoration(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(36 / 2)),
+                              color: Colors.grey),
+                        ))
+                  ]),
+                );
+              },
+            );
+          })
+    ]);
   }
 }

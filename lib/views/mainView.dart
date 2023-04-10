@@ -38,16 +38,6 @@ class _MainViewState extends ConsumerState<MainView> {
     ];
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Valorant"),
-        actions: [
-          IconButton(
-              onPressed: () {
-                showSearch(context: context, delegate: CustomSearchClass(ref));
-              },
-              icon: const Icon(Icons.search))
-        ],
-      ),
       body: views[selectindex],
       drawer: Drawer(
         child: ListView(
