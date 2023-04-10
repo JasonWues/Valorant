@@ -11,6 +11,8 @@ class SearchView extends ConsumerStatefulWidget {
 class _SearchViewState extends ConsumerState<SearchView> {
   @override
   Widget build(BuildContext context) {
-    return Center();
+    return Column(
+      children: [TextField()],
+    );
   }
 }

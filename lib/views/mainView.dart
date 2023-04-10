@@ -4,12 +4,12 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 import 'package:valorant/views/buddies.dart';
 import 'package:valorant/views/searchView.dart';
 import 'package:valorant/views/spraysView.dart';
 import 'package:valorant/views/weaponsView.dart';
 
-import '../themes/colors.dart';
 import '../view_models/provider.dart';
 import 'agentsView.dart';
 
@@ -23,8 +23,6 @@ class MainView extends ConsumerStatefulWidget {
 }
 
 class _MainViewState extends ConsumerState<MainView> {
-  final TextEditingController textController = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     final darkMode = ref.watch(darkModeProvider);
@@ -133,30 +131,46 @@ class _MainViewState extends ConsumerState<MainView> {
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: const Icon(Icons.person),
-            label: "Agents".tr(),
-          ),
-          BottomNavigationBarItem(
-            icon: SvgPicture.asset(
-              "assets/svg/Weapons.svg",
-              colorFilter: const ColorFilter.mode(
-                  Color.fromRGBO(111, 111, 112, 1.0), BlendMode.srcIn),
-            ),
-            activeIcon: SvgPicture.asset(
-              "assets/svg/Weapons.svg",
-            ),
-            label: "Weapons".tr(),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.school),
-            label: "Sprays".tr(),
-          ),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.school), label: "Buddies".tr())
+      bottomNavigationBar: SalomonBottomBar(
+        items: <SalomonBottomBarItem>[
+          SalomonBottomBarItem(
+              icon: const Icon(Icons.person),
+              title: Text("Agents".tr()),
+              selectedColor: Theme.of(context).colorScheme.primary,
+              unselectedColor: Theme.of(context).disabledColor),
+          SalomonBottomBarItem(
+              icon: Padding(
+                  padding: const EdgeInsets.only(top: 5),
+                  child: SvgPicture.asset(
+                    "assets/svg/Weapons.svg",
+                    colorFilter: ColorFilter.mode(
+                        Theme.of(context).disabledColor, BlendMode.srcIn),
+                  )),
+              activeIcon: Padding(
+                  padding: const EdgeInsets.only(top: 5),
+                  child: SvgPicture.asset(
+                    "assets/svg/Weapons.svg",
+                    colorFilter: ColorFilter.mode(
+                        Theme.of(context).colorScheme.primary, BlendMode.srcIn),
+                  )),
+              title: Text("Weapons".tr()),
+              selectedColor: Theme.of(context).colorScheme.primary,
+              unselectedColor: Theme.of(context).disabledColor),
+          SalomonBottomBarItem(
+              icon: const Icon(Icons.search),
+              title: Text("Search".tr()),
+              selectedColor: Theme.of(context).colorScheme.primary,
+              unselectedColor: Theme.of(context).disabledColor),
+          SalomonBottomBarItem(
+              icon: Icon(Icons.school),
+              title: Text("Sprays".tr()),
+              selectedColor: Theme.of(context).colorScheme.primary,
+              unselectedColor: Theme.of(context).disabledColor),
+          SalomonBottomBarItem(
+              icon: Icon(Icons.school),
+              title: Text("Buddies".tr()),
+              selectedColor: Theme.of(context).colorScheme.primary,
+              unselectedColor: Theme.of(context).disabledColor)
         ],
         currentIndex: selectindex,
         onTap: (value) {
@@ -170,7 +184,6 @@ class _MainViewState extends ConsumerState<MainView> {
 
   @override
   void dispose() {
-    textController.dispose();
     super.dispose();
   }
 }
