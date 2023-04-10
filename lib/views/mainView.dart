@@ -5,13 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
-import 'package:valorant/views/buddies.dart';
-import 'package:valorant/views/searchView.dart';
-import 'package:valorant/views/spraysView.dart';
-import 'package:valorant/views/weaponsView.dart';
 
+import '../custom/customSearchClass.dart';
 import '../view_models/provider.dart';
 import 'agentsView.dart';
+import 'buddies.dart';
+import 'spraysView.dart';
+import 'weaponsView.dart';
 
 final selectIndexProvider = StateProvider<int>((ref) => 0);
 
@@ -33,7 +33,6 @@ class _MainViewState extends ConsumerState<MainView> {
     final views = <Widget>[
       const AgentsView(),
       const WeaponsView(),
-      const SearchView(),
       const SpraysView(),
       const BuddiesView()
     ];
@@ -41,6 +40,13 @@ class _MainViewState extends ConsumerState<MainView> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Valorant"),
+        actions: [
+          IconButton(
+              onPressed: () {
+                showSearch(context: context, delegate: CustomSearchClass(ref));
+              },
+              icon: const Icon(Icons.search))
+        ],
       ),
       body: views[selectindex],
       drawer: Drawer(
@@ -154,11 +160,6 @@ class _MainViewState extends ConsumerState<MainView> {
                         Theme.of(context).colorScheme.primary, BlendMode.srcIn),
                   )),
               title: Text("Weapons".tr()),
-              selectedColor: Theme.of(context).colorScheme.primary,
-              unselectedColor: Theme.of(context).disabledColor),
-          SalomonBottomBarItem(
-              icon: const Icon(Icons.search),
-              title: Text("Search".tr()),
               selectedColor: Theme.of(context).colorScheme.primary,
               unselectedColor: Theme.of(context).disabledColor),
           SalomonBottomBarItem(
