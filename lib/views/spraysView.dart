@@ -9,6 +9,7 @@ import 'package:path/path.dart' as path;
 import 'package:shimmer/shimmer.dart';
 
 import '../custom/customSearchClass.dart';
+import '../enum/dataType.dart';
 import '../models/searchModel.dart';
 import '../view_models/provider.dart';
 
@@ -39,7 +40,8 @@ class SpraysView extends ConsumerWidget {
                   delegate: CustomSearchClass(asyncValue.value!
                       .map((spray) => SearchModel(
                           displayIcon: spray.displayIcon,
-                          displayName: spray.displayName))
+                          displayName: spray.displayName,
+                          dataType: DataType.spray))
                       .toList()));
             },
           ),

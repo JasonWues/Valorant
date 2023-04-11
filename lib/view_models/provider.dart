@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../config/darkModeNotifier.dart';
 import '../models/agents/agent.dart';
 import '../models/buddies/buddy.dart';
-import '../models/searchModel.dart';
 import '../models/sprays/spray.dart';
 import '../models/version.dart';
 import '../models/weapons/weapon.dart';

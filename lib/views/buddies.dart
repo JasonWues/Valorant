@@ -7,6 +7,7 @@ import 'package:path/path.dart' as path;
 import 'package:shimmer/shimmer.dart';
 
 import '../custom/customSearchClass.dart';
+import '../enum/dataType.dart';
 import '../models/searchModel.dart';
 import '../view_models/provider.dart';
 
@@ -37,7 +38,8 @@ class BuddiesView extends ConsumerWidget {
                   delegate: CustomSearchClass(asyncValue.value!
                       .map((buddy) => SearchModel(
                           displayIcon: buddy.displayIcon,
-                          displayName: buddy.displayName))
+                          displayName: buddy.displayName,
+                          dataType: DataType.buddy))
                       .toList()));
             },
           ),

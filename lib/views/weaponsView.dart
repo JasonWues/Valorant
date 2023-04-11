@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../custom/customSearchClass.dart';
+import '../enum/dataType.dart';
 import '../models/searchModel.dart';
 import '../view_models/provider.dart';
 
@@ -34,7 +35,8 @@ class WeaponsView extends ConsumerWidget {
                   delegate: CustomSearchClass(asyncValue.value!
                       .map((weapon) => SearchModel(
                           displayIcon: weapon.displayIcon,
-                          displayName: weapon.displayName))
+                          displayName: weapon.displayName,
+                          dataType: DataType.weapon))
                       .toList()));
             },
           ),

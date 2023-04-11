@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../custom/customSearchClass.dart';
+import '../enum/dataType.dart';
 import '../models/searchModel.dart';
 import '../view_models/provider.dart';
 
@@ -35,7 +36,8 @@ class AgentsView extends ConsumerWidget {
                     delegate: CustomSearchClass(asyncValue.value!
                         .map((agent) => SearchModel(
                             displayIcon: agent.displayIcon,
-                            displayName: agent.displayName))
+                            displayName: agent.displayName,
+                            dataType: DataType.agent))
                         .toList()));
               },
             ),

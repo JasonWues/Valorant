@@ -5,6 +5,7 @@ import 'package:valorant/models/searchModel.dart';
 
 class CustomSearchClass extends SearchDelegate {
   late List<SearchModel> searchList;
+  final List<SearchModel> searchResult = List.empty(growable: true);
   CustomSearchClass(this.searchList);
 
   @override
@@ -31,19 +32,24 @@ class CustomSearchClass extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
-    searchList = searchList
-        .where((element) => element.displayName!.contains(query))
-        .toList();
+    if (query.isEmpty) {
+      searchResult.clear();
+    } else {
+      searchResult.addAll(searchList
+          .where((element) => element.displayName!.contains(query))
+          .toList());
+    }
+
     return Center(
         child: ListView.builder(
       itemBuilder: (context, index) {
         return ListTile(
           leading: CircleAvatar(
-              backgroundImage: NetworkImage(searchList[index].displayIcon!)),
-          title: Text(searchList[index].displayName!),
+              backgroundImage: NetworkImage(searchResult[index].displayIcon!)),
+          title: Text(searchResult[index].displayName!),
         );
       },
-      itemCount: searchList.length,
+      itemCount: searchResult.length,
     ));
   }
 

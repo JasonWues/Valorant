@@ -98,7 +98,7 @@ class AgentView extends ConsumerWidget {
               ),
             ),
             SliverPadding(
-                padding: const EdgeInsets.only(top: 35),
+                padding: const EdgeInsets.fromLTRB(12, 35, 12, 0),
                 sliver: SliverList(
                     delegate: SliverChildBuilderDelegate((context, index) {
                   return Row(children: [
