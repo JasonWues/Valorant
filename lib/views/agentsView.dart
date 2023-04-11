@@ -30,15 +30,24 @@ class AgentsView extends ConsumerWidget {
               icon: const Icon(
                 Icons.search,
               ),
-              onPressed: () {
-                showSearch(
+              onPressed: () async {
+                final value = asyncValue.value!;
+                final result = await showSearch<SearchModel?>(
                     context: context,
-                    delegate: CustomSearchClass(asyncValue.value!
+                    delegate: CustomSearchClass(value
                         .map((agent) => SearchModel(
                             displayIcon: agent.displayIcon,
                             displayName: agent.displayName,
                             dataType: DataType.agent))
                         .toList()));
+                if (result != null) {
+                  final agent = value.firstWhere(
+                      (element) => element.displayIcon == result.displayIcon);
+
+                  if (context.mounted) {
+                    Navigator.of(context).pushNamed("Agent", arguments: agent);
+                  }
+                }
               },
             ),
           ],

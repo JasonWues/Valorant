@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:valorant/models/searchModel.dart';
 
-class CustomSearchClass extends SearchDelegate {
+class CustomSearchClass extends SearchDelegate<SearchModel?> {
   late List<SearchModel> searchList;
   final List<SearchModel> searchResult = List.empty(growable: true);
   CustomSearchClass(this.searchList);
@@ -47,6 +47,9 @@ class CustomSearchClass extends SearchDelegate {
           leading: CircleAvatar(
               backgroundImage: NetworkImage(searchResult[index].displayIcon!)),
           title: Text(searchResult[index].displayName!),
+          onTap: () {
+            close(context, searchResult[index]);
+          },
         );
       },
       itemCount: searchResult.length,

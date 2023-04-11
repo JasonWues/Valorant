@@ -29,15 +29,24 @@ class WeaponsView extends ConsumerWidget {
             icon: const Icon(
               Icons.search,
             ),
-            onPressed: () {
-              showSearch(
+            onPressed: () async {
+              final value = asyncValue.value!;
+              final result = await showSearch<SearchModel?>(
                   context: context,
-                  delegate: CustomSearchClass(asyncValue.value!
+                  delegate: CustomSearchClass(value
                       .map((weapon) => SearchModel(
                           displayIcon: weapon.displayIcon,
                           displayName: weapon.displayName,
                           dataType: DataType.weapon))
                       .toList()));
+              if (result != null) {
+                final weapon = value.firstWhere(
+                    (element) => element.displayIcon == result.displayIcon);
+
+                if (context.mounted) {
+                  Navigator.of(context).pushNamed("Weapon", arguments: weapon);
+                }
+              }
             },
           ),
         ],

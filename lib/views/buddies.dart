@@ -32,15 +32,22 @@ class BuddiesView extends ConsumerWidget {
             icon: const Icon(
               Icons.search,
             ),
-            onPressed: () {
-              showSearch(
+            onPressed: () async {
+              final value = asyncValue.value!;
+              final result = await showSearch<SearchModel?>(
                   context: context,
-                  delegate: CustomSearchClass(asyncValue.value!
+                  delegate: CustomSearchClass(value
                       .map((buddy) => SearchModel(
                           displayIcon: buddy.displayIcon,
                           displayName: buddy.displayName,
                           dataType: DataType.buddy))
                       .toList()));
+              if (result != null) {
+                final buddy = value.firstWhere(
+                    (element) => element.displayIcon == result.displayIcon);
+
+                if (context.mounted) {}
+              }
             },
           ),
         ],

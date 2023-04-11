@@ -34,15 +34,22 @@ class SpraysView extends ConsumerWidget {
             icon: const Icon(
               Icons.search,
             ),
-            onPressed: () {
-              showSearch(
+            onPressed: () async {
+              final value = asyncValue.value!;
+              final result = await showSearch<SearchModel?>(
                   context: context,
-                  delegate: CustomSearchClass(asyncValue.value!
+                  delegate: CustomSearchClass(value
                       .map((spray) => SearchModel(
                           displayIcon: spray.displayIcon,
                           displayName: spray.displayName,
                           dataType: DataType.spray))
                       .toList()));
+              if (result != null) {
+                final spray = value.firstWhere(
+                    (element) => element.displayIcon == result.displayIcon);
+
+                if (context.mounted) {}
+              }
             },
           ),
         ],
