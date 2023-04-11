@@ -26,7 +26,6 @@ dependencies:
   path: ^1.8.2
   salomon_bottom_bar: ^3.3.2
   dynamic_color: ^1.6.3
-  flutter_native_splash: ^2.2.19
 
 dev_dependencies:
   flutter_test:
@@ -35,6 +34,7 @@ dev_dependencies:
   custom_lint: ^0.3.2
   flutter_lints: ^2.0.1
   riverpod_lint: ^1.1.6
+  flutter_native_splash: ^2.2.19
 
 flutter:
 
