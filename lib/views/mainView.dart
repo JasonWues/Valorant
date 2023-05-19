@@ -6,7 +6,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
-import '../custom/customSearchClass.dart';
 import '../view_models/provider.dart';
 import 'agentsView.dart';
 import 'buddies.dart';
@@ -44,7 +43,7 @@ class _MainViewState extends ConsumerState<MainView> {
           padding: EdgeInsets.zero,
           children: [
             const DrawerHeader(
-              child: Text('Drawer Header'),
+              child: Text("Valorant"),
             ),
             ListTile(
               leading: const Icon(

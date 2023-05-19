@@ -8,11 +8,76 @@ import 'package:shimmer/shimmer.dart';
 
 import '../custom/customSearchClass.dart';
 import '../enum/dataType.dart';
+import '../models/buddies/buddy.dart';
 import '../models/searchModel.dart';
+import '../repository/repository.dart';
 import '../view_models/provider.dart';
 
 class BuddiesView extends ConsumerWidget {
   const BuddiesView({super.key});
+
+  void showModal(BuildContext context, Buddy buddy, Repository repository) {
+    showModalBottomSheet(
+        context: context,
+        builder: (context) {
+          return SizedBox(
+            height: 130,
+            child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  FloatingActionButton(
+                    onPressed: () {},
+                    child: const Icon(Icons.share),
+                  ),
+                  Text("Share".tr())
+                ],
+              ),
+              const SizedBox(width: 20),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  FloatingActionButton(
+                    onPressed: () async {
+                      final filepath =
+                          await FilePicker.platform.getDirectoryPath();
+                      if (filepath != null) {
+                        final fileName =
+                            path.join(filepath, "${buddy.displayName!}.jpg");
+                        await repository.download(buddy.displayIcon!, fileName);
+                      }
+                    },
+                    child: const Icon(Icons.download),
+                  ),
+                  Text("Download".tr())
+                ],
+              ),
+              const SizedBox(width: 20),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  FloatingActionButton(
+                    onPressed: () {
+                      if (buddy.displayIcon != null) {
+                        final imageProvider =
+                            Image.network(buddy.displayIcon!).image;
+                        showImageViewer(context, imageProvider);
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          content:
+                              Text("Current Buddies Not Found FullImage".tr()),
+                        ));
+                      }
+                    },
+                    child: const Icon(Icons.image),
+                  ),
+                  Text("Preview".tr())
+                ],
+              )
+            ]),
+          );
+        });
+  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -46,7 +111,9 @@ class BuddiesView extends ConsumerWidget {
                 final buddy = value.firstWhere(
                     (element) => element.displayIcon == result.displayIcon);
 
-                if (context.mounted) {}
+                if (context.mounted) {
+                  showModal(context, buddy, repository);
+                }
               }
             },
           ),
@@ -63,82 +130,7 @@ class BuddiesView extends ConsumerWidget {
                     itemBuilder: (context, index) {
                       return GestureDetector(
                         onTap: () {
-                          showModalBottomSheet(
-                              context: context,
-                              builder: (context) {
-                                return SizedBox(
-                                  height: 130,
-                                  child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            FloatingActionButton(
-                                              onPressed: () {},
-                                              child: const Icon(Icons.share),
-                                            ),
-                                            Text("Share".tr())
-                                          ],
-                                        ),
-                                        const SizedBox(width: 20),
-                                        Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            FloatingActionButton(
-                                              onPressed: () async {
-                                                final filepath =
-                                                    await FilePicker.platform
-                                                        .getDirectoryPath();
-                                                if (filepath != null) {
-                                                  final fileName = path.join(
-                                                      filepath,
-                                                      "${data[index].displayName!}.jpg");
-                                                  await repository.download(
-                                                      data[index].displayIcon!,
-                                                      fileName);
-                                                }
-                                              },
-                                              child: const Icon(Icons.download),
-                                            ),
-                                            Text("Download".tr())
-                                          ],
-                                        ),
-                                        const SizedBox(width: 20),
-                                        Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            FloatingActionButton(
-                                              onPressed: () {
-                                                if (data[index].displayIcon !=
-                                                    null) {
-                                                  final imageProvider =
-                                                      Image.network(data[index]
-                                                              .displayIcon!)
-                                                          .image;
-                                                  showImageViewer(
-                                                      context, imageProvider);
-                                                } else {
-                                                  ScaffoldMessenger.of(context)
-                                                      .showSnackBar(SnackBar(
-                                                    content: Text(
-                                                        "Current Buddies Not Found FullImage"
-                                                            .tr()),
-                                                  ));
-                                                }
-                                              },
-                                              child: const Icon(Icons.image),
-                                            ),
-                                            Text("Preview".tr())
-                                          ],
-                                        )
-                                      ]),
-                                );
-                              });
+                          showModal(context, data[index], repository);
                         },
                         child: Card(
                           child: Column(
