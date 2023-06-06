@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../config/darkModeNotifier.dart';
+import '../config/langNotifier.dart';
 import '../models/agents/agent.dart';
 import '../models/buddies/buddy.dart';
 import '../models/sprays/spray.dart';
@@ -38,3 +39,6 @@ final versionProvider = FutureProvider<Version>((ref) async {
 final darkModeProvider = StateNotifierProvider<DarkModeNotifier, int>(
   (ref) => DarkModeNotifier(),
 );
+
+final langProvider =
+    StateNotifierProvider<LangNotifier, String>((ref) => LangNotifier());

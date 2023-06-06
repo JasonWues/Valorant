@@ -27,6 +27,7 @@ class _MainViewState extends ConsumerState<MainView> {
     final darkMode = ref.watch(darkModeProvider);
     final version = ref.watch(versionProvider);
     final selectindex = ref.watch(selectIndexProvider);
+    final lang = ref.watch(langProvider);
 
     final List<bool> isSelect = [false, false, false]..[darkMode] = true;
     final views = <Widget>[
@@ -90,7 +91,7 @@ class _MainViewState extends ConsumerState<MainView> {
                   ),
                 ),
                 DropdownButton<Locale>(
-                  value: context.locale,
+                  value: lang.isNotEmpty ? Locale(lang) : context.locale,
                   items: context.supportedLocales
                       .map<DropdownMenuItem<Locale>>((locale) {
                     return DropdownMenuItem<Locale>(
@@ -102,6 +103,7 @@ class _MainViewState extends ConsumerState<MainView> {
                   }).toList(),
                   onChanged: (value) {
                     context.setLocale(value!);
+                    ref.read(langProvider.notifier).change(value.toString());
                   },
                 ),
                 const SizedBox(
@@ -152,12 +154,12 @@ class _MainViewState extends ConsumerState<MainView> {
               selectedColor: Theme.of(context).colorScheme.primary,
               unselectedColor: Theme.of(context).disabledColor),
           SalomonBottomBarItem(
-              icon: Icon(Icons.school),
+              icon: const Icon(Icons.school),
               title: Text("Sprays".tr()),
               selectedColor: Theme.of(context).colorScheme.primary,
               unselectedColor: Theme.of(context).disabledColor),
           SalomonBottomBarItem(
-              icon: Icon(Icons.school),
+              icon: const Icon(Icons.school),
               title: Text("Buddies".tr()),
               selectedColor: Theme.of(context).colorScheme.primary,
               unselectedColor: Theme.of(context).disabledColor)

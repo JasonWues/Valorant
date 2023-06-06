@@ -18,6 +18,6 @@ class DarkModeNotifier extends StateNotifier<int> {
 
   void toggle(int index) async {
     state = index;
-    prefs.setInt("darkMode", index);
+    await prefs.setInt("darkMode", index);
   }
 }
