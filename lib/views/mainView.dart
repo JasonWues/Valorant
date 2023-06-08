@@ -91,13 +91,13 @@ class _MainViewState extends ConsumerState<MainView> {
                   ),
                 ),
                 DropdownButton<Locale>(
-                  value: lang.isNotEmpty ? Locale(lang) : context.locale,
+                  value: context.locale,
                   items: context.supportedLocales
                       .map<DropdownMenuItem<Locale>>((locale) {
                     return DropdownMenuItem<Locale>(
                       value: locale,
                       child: Text(
-                        locale.toString().tr(),
+                        locale.toString(),
                       ),
                     );
                   }).toList(),
